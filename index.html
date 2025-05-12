@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Biodata</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 85%;
+      margin: 40px auto;
+      background-color: #1d1f21;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 42px;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    .header p {
+      font-size: 18px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      padding: 15px 40px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 50px;
+      background-color: #007bff;
+      color: white;
+      transition: all 0.3s ease;
+      transform: scale(1);
+      width: 200px;
+    }
+
+    .buttons button:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      margin: 20px 0;
+      object-fit: cover;
+      border: 3px solid #007bff;
+    }
+
+    .section-title {
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+      letter-spacing: 1px;
+    }
+
+    .section-content {
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .list {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 10px;
+    }
+
+    .list li {
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .stars {
+      color: gold;
+      margin-left: 10px;
+    }
+
+    .project-img {
+      width: 100%;
+      max-width: 500px;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+
+    .publication-link {
+      color: #4dabf7;
+      text-decoration: none;
+    }
+
+    .publication-link:hover {
+      text-decoration: underline;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      font-size: 22px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      color: #007bff;
+    }
+
+    section {
+      display: none;
+      padding: 20px;
+      margin-top: 30px;
+      background-color: #2a2e35;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="c:\Users\DELL\Downloads\gambar diri.png" alt="Profile Picture" class="profile-img">
+      <h1>Muhammad Aiman bin Mohd Asyraf</h1>
+      <p>Master's Student | Computer Engineering</p>
+      <p><a href="tel:+60149113900">+60 14-911 3900</a> | <a href="mailto:aimanjitra01@gmail.com">aimanjitra01@gmail.com</a></p>
+      <div class="buttons">
+        <button onclick="showSection('about')">About Me</button>
+        <button onclick="showSection('background')">Background</button>
+        <button onclick="showSection('skills')">Skills & Projects</button>
+        <button onclick="showSection('achievement')">Achievements</button>
+        <button onclick="showSection('contact')">Contact</button>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="section-title">About Me</div>
+      <div class="section-content">
+        Passionate and driven master's student in Computer Engineering with a strong foundation in coding and IT. Currently honing my technical and research skills, I aspire to pursue advanced studies at a prestigious international institution. My objective is to engage in a dynamic academic environment, deepen my expertise, and contribute meaningfully to pioneering research in computer engineering and emerging technologies.</div>
+      <div class="section-title">Professional Body Membership</div>
+      <div class="section-content">
+        Graduate Engineer of Board Engineer Malaysia (BEM)<br>
+Reg. No.: G1259665A<br>
+Branch: Computer
+      </div>
+    </section>
+
+    <section id="background">
+      <div class="section-title">Education</div>
+      <div class="section-content">
+        <strong>Master of Science (Computer Engineering)</strong><br>Universiti Malaysia Perlis, 2024 - Present<br>
+        Title: A New Phase Transition Controller in Sand Cat Swarm Optimization for Combinatorial Test Suite Generation
+      </div>
+      <div class="section-content">
+        <strong>Bachelor of Engineering (Hons) (Computer Engineering)</strong><br>Universiti Malaysia Perlis, 2020 - 2024 | CGPA: 3.54
+      </div>
+      <div class="section-content">
+        <strong>Science Programme (Module II)</strong><br>Kedah Matriculation College, 2019 - 2020 | CGPA: 3.30
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-title">Language Proficiency</div>
+      <ul class="list">
+        <li>English: Writing <span class="stars">★★★★☆</span> | Speaking <span class="stars">★★★★☆</span></li>
+        <li>Malay: Writing <span class="stars">★★★★★</span> | Speaking <span class="stars">★★★★★</span></li>
+      </ul>
+
+      <div class="section-title">Skills</div>
+      <ul class="list">
+        <li>Programming: C, Java, Verilog, Python, Assembly</li>
+        <li>Web Technologies: HTML, CSS, JavaScript, Firebase, MySQL, Tinybird</li>
+        <li>Tools: Visual Studio Code, GitHub, SketchUp, Google Data Studio</li>
+      </ul>
+
+      <div class="section-title">Projects</div>
+      <ul class="list">
+        <li>"Food Ordering System" by C Programming Language using Codeblock</li>
+        <li>"Menu Ordering System" by Java Language using Netbeans IDE</li>
+        <li>"Counter Number Bank for Customer" by Assembly Language with MTK-8085 board<br><img src="c:\Users\DELL\Downloads\photo_2025-01-25_21-53-44.jpg" class="project-img"></li>
+        <li>"IoT Driven Small Home Watering System" by ESP8266<br><img src="c:\Users\DELL\Downloads\photo_2025-01-25_21-30-26.jpg" class="project-img"></li>
+        <li>Student Academic Guidance Web (Firebase & GitHub)<br><a href="https://aimanjitra.github.io/firebase2/login.html">Student Guidance Web</a></li>
+        <li>Intelligent Mosque Security System (ESP32)<br><img src="c:\Users\DELL\Downloads\photo_2023-11-28_15-29-20.jpg" alt="Mosque Security System" class="project-img"></li>
+      </ul>
+    </section>
+
+    <section id="achievement">
+      <div class="section-title">Experience</div>
+      <div class="section-content">
+        <strong>Data Analyst, CIGC UniMAP</strong> | 2023<br>Analyzed post-graduation outcomes of students for reporting and insights.
+      </div>
+      <div class="section-title">Awards</div>
+      <div class="section-content">
+        Dean’s Award – Semester 1, 2, 4, and 8<br>
+        2nd Place – Undergraduate Project Exhibition (UPEx 2024)
+      </div>
+      <div class="section-title">Publication</div>
+      <div class="section-content">
+        <a href="https://link.springer.com/chapter/10.1007/978-3-031-78918-2_25" class="publication-link" target="_blank">Student Academic Guidance System Using Rule-Based Expert System</a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title">Contact</div>
+      <div class="section-content">
+        Email: aimanjitra01@gmail.com<br>
+        Phone: +60 14-9113900<br>
+        Location: Kedah, Malaysia
+      </div>
+      <div class="section-title">Reference</div>
+      <div class="section-content">
+        Ts. Dr. Mohd Zamri Bin Zahir Ahmad<br>
+        Faculty of Electronic Engineering & Technology, UniMAP<br>
+        Email: zamrizahir@unimap.edu.my
+      </div>
+    </section>
+
+    <div class="social-links">
+      <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>
