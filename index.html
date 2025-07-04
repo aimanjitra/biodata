@@ -312,14 +312,14 @@
 
 .list li {
   position: relative;
-  padding-left: 50px; /* This creates space for the > symbol and indents text */
+  padding-left: 25px; /* This creates space for the > symbol and indents text */
   margin-bottom: 10px;
 }
 
     .list li::before {
       content: '>';
       position: absolute;
-      left: 20px;
+      left: 5px;
       color: var(--primary);
       font-family: 'Share Tech Mono', monospace;
     }
@@ -629,22 +629,22 @@
 
   <section id="achievement">
     <div class="section-title">Experience</div>
-    <div class="section-content"><strong>Data Analyst, CIGC UniMAP</strong> | 2023<br>Analyzed post-graduation outcomes of students for reporting and insights.</div>
+    <div class="section-content"><strong>Data Analyst, CIGC UniMAP | 2023</strong><br>Analyzed post-graduation outcomes of students for reporting and insights.</div>
 
     <div class="section-title">Activity and Involvement</div>
-    <div class="section-content">
-      Participated in the A3i Campus Asia Short Mobility Program – Yamanashi University, Japan (2023) <br>
-      Participant at 7th International Conference on Electronic Design (ICED 2024) <button class="view-btn" onclick="showImage('upex2024.jpg')">View</button><br>
-      Participated in the Design Thinking Workshop – Yamanashi University, Japan (2024) program <button class="view-btn" onclick="showPdf('c:/Users/DELL/Downloads/POSTER.pdf')">View</button>
-    </div>
+    <ul class="list">
+      <li>Participated in the A3i Campus Asia Short Mobility Program – Yamanashi University, Japan (2023)</li>
+    <li>Participant at 7th International Conference on Electronic Design (ICED 2024) <button class="view-btn" onclick="showImage('upex2024.jpg')">View</button></li>
+    <li>Participated in the Design Thinking Workshop – Yamanashi University, Japan (2024) program <button class="view-btn" onclick="showPdf('c:/Users/DELL/Downloads/POSTER.pdf')">View</button></li>
+    </ul>
 
     <div class="section-title">Awards</div>
-    <div class="section-content">
-      Dean's Award (Sem 1 2020/2021, Sem 2 2020/2021, Sem 2 2021/2022, Sem 2 2023/2024)<br>
-      Second place at Undergraduate Project Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex2024.jpg')">View</button><br>
-      Silver Medal – Postgraduate Research Poster Competition for Mini iFuture 2025 @ UniMAP 
-      <button class="view-btn" onclick="showPdf('POSTER.pdf')">View</button>
-    </div>
+      <ul class="list">
+      <li>Dean's Award (Sem 1 2020/2021, Sem 2 2020/2021, Sem 2 2021/2022, Sem 2 2023/2024)</li>
+    <li>Second place at Undergraduate Project Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex2024.jpg')">View</button></li>
+    <li>Silver Medal – Postgraduate Research Poster Competition for Mini iFuture 2025 @ UniMAP 
+      <button class="view-btn" onclick="showPdf('POSTER.pdf')">View</button></li>
+    </ul>
 
     <div class="section-title">Publication</div>
     <div class="section-content">
