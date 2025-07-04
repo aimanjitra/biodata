@@ -306,20 +306,19 @@
     }
 
     .list {
-      padding-left: 20px;
-      margin-bottom: 20px;
-      color: rgba(255, 255, 255, 0.9);
-    }
+  padding-left: 0;  /* Remove default list padding */
+  list-style: none; /* Remove any default list markers */
+}
 
-    .list li {
-      margin-bottom: 10px;
-      position: relative;
-    }
+.list li {
+  padding-left: 0;  /* Ensure no space for bullet */
+  margin-bottom: 10px;
+}
 
     .list li::before {
       content: '>';
       position: absolute;
-      left: -20px;
+      left: 20px;
       color: var(--primary);
       font-family: 'Share Tech Mono', monospace;
     }
