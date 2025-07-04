@@ -427,6 +427,63 @@
       }
     }
 
+    /* View button styles */
+    .view-btn {
+      background: var(--primary);
+      color: var(--darker);
+      border: none;
+      padding: 3px 8px;
+      margin-left: 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Share Tech Mono', monospace;
+    }
+    
+    .view-btn:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--glow);
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: var(--primary);
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2001;
+    }
+    
+    .close-btn:hover {
+      color: var(--primary-dark);
+      text-shadow: var(--glow);
+    }
+
     @media (max-width: 900px) {
       nav {
         padding: 15px 20px;
@@ -562,11 +619,11 @@
     <div class="section-title">Projects</div>
     <ul class="list">
       <li>"Food Ordering System" by C Programming Language using Codeblock</li>
-        <li>"Menu Ordering System" by Java Language using Netbeans IDE</li>
-        <li>"Counter Number Bank for Customer" by Assembly Language with MTK-8085 board<br><img src="photo_2025-01-25_21-53-44.jpg" class="project-img"></li>
-        <li>"IoT Driven Small Home Watering System" by ESP8266<br><img src="photo_2025-01-25_21-30-26.jpg" class="project-img"></li>
-        <li>Student Academic Guidance Web (Firebase & GitHub)<br><a href="https://aimanjitra.github.io/firebase2/login.html" class="publication-link">Student Guidance Web</a></li>
-        <li>Intelligent Mosque Security System (ESP32)<br><img src="photo_2023-11-28_15-29-20.jpg" alt="Mosque Security System" class="project-img"></li>
+      <li>"Menu Ordering System" by Java Language using Netbeans IDE</li>
+      <li>"Counter Number Bank for Customer" by Assembly Language with MTK-8085 board <button class="view-btn" onclick="showImage('photo_2025-01-25_21-53-44.jpg')">View</button></li>
+      <li>"IoT Driven Small Home Watering System" by ESP8266 <button class="view-btn" onclick="showImage('photo_2025-01-25_21-30-26.jpg')">View</button></li>
+      <li>Student Academic Guidance Web (Firebase & GitHub)<br><a href="https://aimanjitra.github.io/firebase2/login.html" class="publication-link">Student Guidance Web</a></li>
+      <li>Intelligent Mosque Security System (ESP32) <button class="view-btn" onclick="showImage('photo_2023-11-28_15-29-20.jpg')">View</button></li>
     </ul>
   </section>
 
@@ -574,8 +631,20 @@
     <div class="section-title">Experience</div>
     <div class="section-content"><strong>Data Analyst, CIGC UniMAP</strong> | 2023<br>Analyzed post-graduation outcomes of students for reporting and insights.</div>
 
+    <div class="section-title">Activity and Involvement</div>
+    <div class="section-content">
+      Participated in the A3i Campus Asia Short Mobility Program – Yamanashi University, Japan (2023) <br>
+      Participant at 7th International Conference on Electronic Design (ICED 2024) <button class="view-btn" onclick="showImage('upex2024.jpg')">View</button><br>
+      Participated in the Design Thinking Workshop – Yamanashi University, Japan (2024) program <button class="view-btn" onclick="showPdf('c:/Users/DELL/Downloads/POSTER.pdf')">View</button>
+    </div>
+
     <div class="section-title">Awards</div>
-    <div class="section-content">Dean's Award (Sem 1 2020/2021, Sem 2 2020/2021, Sem 2 2021/2022, Sem 2 2023/2024)<br>2nd Place – UPEx 2024<br>Silver Medal – Postgraduate Research Poster Competition for Mini iFuture 2025 @ UniMAP</div>
+    <div class="section-content">
+      Dean's Award (Sem 1 2020/2021, Sem 2 2020/2021, Sem 2 2021/2022, Sem 2 2023/2024)<br>
+      Second place at Undergraduate Project Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex2024.jpg')">View</button><br>
+      Silver Medal – Postgraduate Research Poster Competition for Mini iFuture 2025 @ UniMAP 
+      <button class="view-btn" onclick="showPdf('POSTER.pdf')">View</button>
+    </div>
 
     <div class="section-title">Publication</div>
     <div class="section-content">
@@ -590,10 +659,21 @@
     <div class="section-content">
       Ts. Dr. Mohd Zamri Bin Zahir Ahmad<br>UniMAP<br>Email: zamrizahir@unimap.edu.my
     </div>
-    <div class="social-links">
-      <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-    </div>
   </section>
+
+  <!-- Modal for displaying images and PDFs -->
+  <div id="modal" class="modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <iframe id="pdf-viewer" style="display:none; width:100%; height:100%; border:none;"></iframe>
+      <img id="modal-image" style="display:none; max-width:100%; max-height:80vh;">
+    </div>
+  </div>
+
+  <div class="social-links">
+    <a href="https://orcid.org/0009-0009-3268-0120" target="_blank"><i class="fab fa-orcid"></i> Orcid</a>
+    <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    </div>
 
   <script>
     // Code Background Animation
@@ -715,6 +795,50 @@
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+    });
+
+    // Modal functions
+    function showPdf(pdfUrl) {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      modalImage.style.display = 'none';
+      pdfViewer.style.display = 'block';
+      pdfViewer.src = pdfUrl;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    }
+    
+    function showImage(imgUrl) {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      pdfViewer.style.display = 'none';
+      modalImage.style.display = 'block';
+      modalImage.src = imgUrl;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      modal.style.display = 'none';
+      pdfViewer.src = '';
+      modalImage.src = '';
+      document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+    
+    // Close modal when clicking outside content
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal) {
+        closeModal();
+      }
     });
   </script>
 </body>
