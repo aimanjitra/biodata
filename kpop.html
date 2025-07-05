@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AIMAN | KPOP IDOL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #ff4d97;
+      --primary-dark: #e83e7d;
+      --secondary: #6e40c9;
+      --dark: #1a1a2e;
+      --darker: #0f0f1a;
+      --light: #f8f8ff;
+      --gray: #b8b8d1;
+      --light-pink: #ffebf3;
+      --neon-glow: 0 0 10px rgba(255, 77, 151, 0.7);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --gradient: linear-gradient(135deg, #6e40c9 0%, #ff4d97 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      color: var(--light);
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
+      background-color: var(--dark);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* K-pop Background */
+    .kpop-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a5d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      z-index: -3;
+      opacity: 0.3;
+    }
+
+    /* Lightstick Effect */
+    .lightstick-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle, transparent 0%, var(--darker) 70%);
+      pointer-events: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient);
+      border-radius: 4px;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(26, 26, 46, 0.9);
+      color: var(--light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 77, 151, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      padding: 1rem 3rem;
+      box-shadow: var(--neon-glow);
+      background: rgba(15, 15, 26, 0.95);
+    }
+
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: var(--neon-glow);
+      font-family: 'Black Han Sans', sans-serif;
+      transition: var(--transition);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--primary);
+      text-shadow: var(--neon-glow);
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: var(--primary);
+      margin: 5px;
+      transition: var(--transition);
+      box-shadow: var(--neon-glow);
+    }
+
+    /* Idol Profile Section */
+    .idol-profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 120px 2rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .idol-image {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 5px solid var(--primary);
+      box-shadow: 
+        0 0 20px rgba(255, 77, 151, 0.5),
+        0 0 40px rgba(110, 64, 201, 0.3);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .idol-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(1.05);
+    }
+
+    .idol-image:hover {
+      transform: scale(1.05);
+      box-shadow: 
+        0 0 30px rgba(255, 77, 151, 0.7),
+        0 0 60px rgba(110, 64, 201, 0.5);
+    }
+
+    .idol-name {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-family: 'Black Han Sans', sans-serif;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: var(--neon-glow);
+    }
+
+    .idol-position {
+      font-size: 1.2rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .idol-intro {
+      max-width: 600px;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--light);
+      margin-bottom: 2rem;
+    }
+
+    .fandom-name {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: rgba(255, 77, 151, 0.2);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-icons a {
+      color: var(--light);
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-icons a:hover {
+      color: var(--primary);
+      transform: translateY(-5px);
+      text-shadow: var(--neon-glow);
+    }
+
+    /* Sections */
+    section {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out, transform 0.5s ease;
+      transform: translateY(30px);
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 40px;
+      background: rgba(26, 26, 46, 0.8);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 77, 151, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+
+    section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 25px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      font-family: 'Black Han Sans', sans-serif;
+      text-shadow: 0 0 5px rgba(255, 77, 151, 0.5);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--gradient);
+      box-shadow: var(--neon-glow);
+    }
+
+    .section-content {
+      margin-bottom: 20px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .list {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 15px;
+    }
+
+    .list li::before {
+      content: '★';
+      position: absolute;
+      left: 5px;
+      color: var(--primary);
+      font-family: 'Black Han Sans', sans-serif;
+      text-shadow: var(--neon-glow);
+    }
+
+    .stars {
+      color: #ffcc00;
+    }
+
+    .album-cover {
+      width: 100%;
+      max-width: 300px;
+      margin: 15px 0;
+      border-radius: 10px;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 77, 151, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .album-cover:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--neon-glow);
+      border-color: var(--primary);
+    }
+
+    .music-link {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      position: relative;
+      font-family: 'Black Han Sans', sans-serif;
+    }
+
+    .music-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .music-link:hover::after {
+      width: 100%;
+    }
+
+    /* Concert Lights Effect */
+    .concert-lights {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .light-beam {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,77,151,0.2) 0%, transparent 70%);
+      animation: lightShow 15s infinite linear;
+      filter: blur(30px);
+    }
+
+    @keyframes lightShow {
+      0%, 100% {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }
+      25% {
+        transform: translate(100px, 100px);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate(-100px, 200px);
+        opacity: 0.3;
+      }
+      75% {
+        transform: translate(200px, -100px);
+        opacity: 0.7;
+      }
+    }
+
+    /* View button styles */
+    .view-btn {
+      background: var(--primary);
+      color: var(--darker);
+      border: none;
+      padding: 5px 10px;
+      margin-left: 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Black Han Sans', sans-serif;
+      font-weight: bold;
+      border-radius: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .view-btn:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--neon-glow);
+      transform: translateY(-2px);
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: var(--primary);
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2001;
+      text-shadow: var(--neon-glow);
+    }
+    
+    .close-btn:hover {
+      color: var(--primary-dark);
+      transform: rotate(90deg);
+    }
+
+    /* Fanchant Effect */
+    .fanchant {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      font-family: 'Black Han Sans', sans-serif;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(255, 77, 151, 0.8);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 3000;
+    }
+
+    .fanchant.active {
+      opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        padding: 15px 20px;
+      }
+
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(26, 26, 46, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: var(--transition);
+        border-top: 1px solid var(--primary);
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      .idol-name {
+        font-size: 2.5rem;
+      }
+
+      .idol-image {
+        width: 200px;
+        height: 200px;
+      }
+
+      section {
+        margin: 30px auto;
+        padding: 30px;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- K-pop Background -->
+  <div class="kpop-bg"></div>
+  <div class="lightstick-overlay"></div>
+  <div class="concert-lights"></div>
+
+  <!-- Fanchant Effect -->
+  <div class="fanchant" id="fanchant">AIMAN! AIMAN! AIMAN!</div>
+
+  <nav id="navbar">
+    <div class="logo">AIMAN</div>
+    <ul class="nav-links">
+      <li><a onclick="showSection('about')">Profile</a></li>
+      <li><a onclick="showSection('background')">Training</a></li>
+      <li><a onclick="showSection('skills')">Skills</a></li>
+      <li><a onclick="showSection('achievement')">Achievements</a></li>
+      <li><a onclick="showSection('contact')">Contact</a></li>
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <div class="idol-profile">
+    <div class="idol-image">
+      <img src="photomania-c12658e2884da9a9532da405c62b7847-removebg-preview.png" alt="AIMAN - KPOP IDOL">
+    </div>
+    <h1 class="idol-name">AIMAN</h1>
+    <p class="idol-position">Main Vocalist • Dancer • Visual</p>
+    <p class="idol-intro">A multi-talented K-pop idol with exceptional vocal range and stage presence. Currently working on new music and performances to captivate global audiences with powerful vocals and dynamic choreography.</p>
+    <div class="fandom-name">FANDOM: AIMANICS</div>
+    <div class="social-icons">
+      <a href="https://orcid.org/0009-0009-3268-0120" target="_blank"><i class="fas fa-music"></i></a>
+      <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="section-title">Idol Profile</div>
+    <div class="section-content">
+      A talented K-pop idol with mastery over vocal techniques and stage performance. Currently researching advanced performance techniques to create groundbreaking stages. My mission is to refine my abilities through rigorous training and contribute to the development of new performance styles that can captivate global audiences.
+    </div>
+    <div class="section-title">Agency Affiliation</div>
+    <div class="section-content">
+      Seoul Entertainment<br>Artist No.: G1259665A<br>Specialization: Vocal Performance & Stage Production
+    </div>
+  </section>
+
+  <section id="background">
+    <div class="section-title">Training</div>
+    <div class="section-content"><strong>Master of Performance Arts</strong><br>Seoul Arts University, 2024 - Present<br>Research: "Innovative Applications of Stage Production in Modern Performances"</div>
+    <div class="section-content"><strong>Bachelor of Vocal Arts</strong><br>Seoul Arts University, 2020–2024 | Grade: 1st Class</div>
+    <div class="section-content"><strong>Talent Development</strong><br>Kedah Performance Academy, 2019–2020 | Potential: Recognized</div>
+  </section>
+
+  <section id="skills">
+    <div class="section-title">Language Proficiency</div>
+    <ul class="list">
+      <li>English: Writing <span class="stars">★★★★☆</span> | Speaking <span class="stars">★★★★☆</span></li>
+      <li>Malay: Writing <span class="stars">★★★★★</span> | Speaking <span class="stars">★★★★★</span></li>
+      <li>Korean: Reading <span class="stars">★★★☆☆</span></li>
+    </ul>
+
+    <div class="section-title">Performance Skills</div>
+    <ul class="list">
+      <li>Vocal Techniques: Belting, Falsetto, Vibrato, Breath Control</li>
+      <li>Dance Styles: Hip-hop, Contemporary, K-pop Choreography</li>
+      <li>Stage Skills: Audience Engagement, Choreography Creation, Live Performance</li>
+    </ul>
+
+    <div class="section-title">Performance Projects</div>
+    <ul class="list">
+      <li>"Concert Food Ordering System" project</li>
+      <li>"Performance Menu System" for fan meetings</li>
+      <li>"Music Video Dataset Analysis" <button class="view-btn" onclick="showImage('netflix.png')">View</button></li>
+      <li>"Stage Temperature Regulation" using NTC Thermistor <button class="view-btn" onclick="showImage('thermistor.png')">View</button></li>
+      <li>"Wireless Performance System" using HC-05 <button class="view-btn" onclick="showImage('bluetooth.png')">View</button></li>
+      <li>"Fan Meeting Counter System" <button class="view-btn" onclick="showImage('photo_2025-01-25_21-53-44.jpg')">View</button></li>
+      <li>"Automated Stage Lighting System" using ESP8266 <button class="view-btn" onclick="showImage('photo_2025-01-25_21-30-26.jpg')">View</button></li>
+      <li>"Fan Engagement Web Platform"<br><a href="https://aimanjitra.github.io/firebase2/login.html" class="music-link">Fan Portal</a></li>
+      <li>"Concert Security System" using ESP32 <button class="view-btn" onclick="showImage('photo_2023-11-28_15-29-20.jpg')">View</button></li>
+    </ul>
+  </section>
+
+  <section id="achievement">
+    <div class="section-title">Experience</div>
+    <div class="section-content"><strong>Performance Analyst, Seoul HQ | 2023</strong><br>Analyzed stage performances and developed improvement strategies for artists.</div>
+
+    <div class="section-title">Notable Performances</div>
+    <ul class="list">
+      <li>Participated in the International Artist Exchange Program - Yamanashi University, Japan (2023) <button class="view-btn" onclick="showImage('photo_2025-01-28_17-31-37.jpg')">View</button></li>
+      <li>Attended 7th International Conference on Entertainment Design (ICED 2024) <button class="view-btn" onclick="showImage('iced.png')">View</button></li>
+      <li>Developed "Smart Performance Wristband" using ESP32 (2024) <button class="view-btn" onclick="showImage('smartwatch.png')">View</button></li>
+    </ul>
+    
+    <div class="section-title">Awards</div>
+      <ul class="list">
+      <li>CEO's Recognition (Sem 1 2020/2021, Sem 1 2021/2022, Sem 1 2022/2023, Sem 2 2023/2024)</li>
+      <li>Second place at Annual Performance Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex.png')">View</button></li>
+      <li>Silver Medal - Advanced Performance Competition 2025 <button class="view-btn" onclick="showImage('silver.jpg')">View</button></li>
+    </ul>
+
+    <div class="section-title">Publications</div>
+    <div class="section-content">
+      <a href="https://link.springer.com/chapter/10.1007/978-3-031-78918-2_25" class="music-link" target="_blank">Fan Engagement Guidance System</a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-title">Contact</div>
+    <div class="section-content">Email: aimanjitra01@gmail.com<br>Management: +60 14-9113900<br>Location: Seoul Entertainment, Malaysia Branch</div>
+    <div class="section-title">References</div>
+    <div class="section-content">
+      Bang Si-hyuk<br>Seoul Entertainment<br>Chief Producer
+    </div>
+  </section>
+
+  <!-- Modal for displaying images and PDFs -->
+  <div id="modal" class="modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <iframe id="pdf-viewer" style="display:none; width:100%; height:100%; border:none;"></iframe>
+      <img id="modal-image" style="display:none; max-width:100%; max-height:80vh;">
+    </div>
+  </div>
+
+  <script>
+    // Create concert light beams
+    const concertLights = document.querySelector('.concert-lights');
+    for (let i = 0; i < 8; i++) {
+      const light = document.createElement('div');
+      light.classList.add('light-beam');
+      const size = Math.random() * 300 + 200;
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100;
+      const delay = Math.random() * 15;
+      const duration = Math.random() * 20 + 10;
+      
+      light.style.width = `${size}px`;
+      light.style.height = `${size}px`;
+      light.style.top = `${posY}%`;
+      light.style.left = `${posX}%`;
+      light.style.animationDelay = `${delay}s`;
+      light.style.animationDuration = `${duration}s`;
+      
+      // Random pink/purple color
+      const hue = Math.random() * 30 + 300; // 300-330 for pink/purple range
+      light.style.background = `radial-gradient(circle, hsla(${hue}, 100%, 70%, 0.2) 0%, transparent 70%)`;
+      
+      concertLights.appendChild(light);
+    }
+
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Show section function with fanchant effect
+    function showSection(id) {
+      const fanchant = document.getElementById('fanchant');
+      fanchant.classList.add('active');
+      
+      setTimeout(() => {
+        document.querySelectorAll('section').forEach(section => {
+          section.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        
+        fanchant.classList.remove('active');
+      }, 1000);
+    }
+
+    // Intersection Observer for section animations
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Modal functions
+    function showPdf(pdfUrl) {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      modalImage.style.display = 'none';
+      pdfViewer.style.display = 'block';
+      pdfViewer.src = pdfUrl;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function showImage(imgUrl) {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      pdfViewer.style.display = 'none';
+      modalImage.style.display = 'block';
+      modalImage.src = imgUrl;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      modal.style.display = 'none';
+      pdfViewer.src = '';
+      modalImage.src = '';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Close modal when clicking outside content
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    // K-pop lightstick wave effect
+    document.addEventListener('mousemove', function(e) {
+      const light = document.createElement('div');
+      light.classList.add('light-beam');
+      light.style.width = '100px';
+      light.style.height = '100px';
+      light.style.left = e.pageX + 'px';
+      light.style.top = e.pageY + 'px';
+      light.style.opacity = '0.5';
+      light.style.animation = 'none';
+      document.body.appendChild(light);
+      
+      // Remove after animation
+      setTimeout(() => {
+        light.remove();
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
