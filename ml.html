@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aiman | Mobile Legends Hero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --ml-primary: #ff5722;
+      --ml-primary-dark: #e64a19;
+      --ml-secondary: #2196f3;
+      --ml-dark: #121a2a;
+      --ml-darker: #0a0f1a;
+      --ml-light: #e0e0e0;
+      --ml-gold: #ffd700;
+      --ml-blue: #4fc3f7;
+      --ml-red: #f44336;
+      --ml-green: #4caf50;
+      --ml-glow: 0 0 15px rgba(255, 87, 34, 0.8);
+      --ml-skill-glow: 0 0 10px rgba(33, 150, 243, 0.8);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--ml-darker);
+      color: var(--ml-light);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(33, 150, 243, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(255, 87, 34, 0.1) 0%, transparent 20%);
+    }
+
+    ::selection {
+      background: var(--ml-primary);
+      color: var(--ml-darker);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--ml-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--ml-primary), var(--ml-secondary));
+      border-radius: 4px;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(18, 26, 42, 0.9);
+      color: var(--ml-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 87, 34, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      padding: 1rem 3rem;
+      box-shadow: var(--ml-glow);
+      background: rgba(10, 15, 26, 0.95);
+    }
+
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--ml-primary), var(--ml-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: var(--ml-glow);
+      font-family: 'Orbitron', sans-serif;
+      transition: var(--transition);
+      animation: logoGlow 2s infinite alternate;
+    }
+
+    @keyframes logoGlow {
+      0% { text-shadow: 0 0 5px rgba(255, 87, 34, 0.5); }
+      100% { text-shadow: 0 0 20px rgba(255, 87, 34, 0.9); }
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      color: var(--ml-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    nav ul li a::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(255, 87, 34, 0.1);
+      z-index: -1;
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::before,
+    nav ul li a.active::before {
+      width: 100%;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--ml-primary);
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--ml-primary);
+      text-shadow: var(--ml-glow);
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 2px;
+      background: var(--ml-primary);
+      margin: 5px;
+      transition: var(--transition);
+      box-shadow: var(--ml-glow);
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      display: flex;
+      height: 100vh;
+      min-height: 100vh;
+      position: relative;
+      padding-top: 80px;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      background: url('c:/Users/DELL/Downloads/preview.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 15, 26, 0.7);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, var(--ml-primary), var(--ml-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: var(--ml-glow);
+      animation: textGlow 2s infinite alternate;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, var(--ml-primary), var(--ml-secondary));
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 30px;
+      transition: var(--transition);
+      box-shadow: var(--ml-glow);
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.5);
+    }
+
+    /* Sections */
+    section {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out, transform 0.5s ease;
+      transform: translateY(30px);
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background: rgba(18, 26, 42, 0.7);
+      border-radius: 5px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ml-primary), var(--ml-secondary));
+      animation: borderGlow 3s infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+
+    section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: var(--ml-primary);
+      position: relative;
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+      animation: titleFloat 3s infinite ease-in-out;
+    }
+
+    @keyframes titleFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--ml-primary), var(--ml-secondary));
+      box-shadow: var(--ml-glow);
+      animation: lineExtend 2s infinite alternate;
+    }
+
+    @keyframes lineExtend {
+      0% { width: 40px; }
+      100% { width: 100px; }
+    }
+
+    .section-content {
+      margin-bottom: 20px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .list {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 15px;
+      transition: var(--transition);
+    }
+
+    .list li:hover {
+      transform: translateX(5px);
+    }
+
+    .list li::before {
+      content: '✦';
+      position: absolute;
+      left: 5px;
+      color: var(--ml-primary);
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: var(--ml-glow);
+    }
+
+    .stars {
+      color: var(--ml-gold);
+      text-shadow: 0 0 5px gold;
+    }
+
+    .project-img {
+      width: 100%;
+      max-width: 400px;
+      margin: 15px 0;
+      border-radius: 5px;
+      box-shadow: none;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      cursor: pointer;
+    }
+
+    .project-img:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: var(--ml-glow);
+      border-color: var(--ml-primary);
+      filter: brightness(1.1);
+    }
+
+    .publication-link {
+      color: var(--ml-primary);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      position: relative;
+      font-family: 'Orbitron', sans-serif;
+      padding: 0 5px;
+    }
+
+    .publication-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 87, 34, 0.1);
+      z-index: -1;
+      transition: var(--transition);
+    }
+
+    .publication-link:hover::before {
+      width: 100%;
+    }
+
+    .publication-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--ml-primary);
+      transition: var(--transition);
+    }
+
+    .publication-link:hover::after {
+      width: 100%;
+    }
+
+    .social-links {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .social-links a {
+      color: var(--ml-primary);
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 15px;
+      transition: var(--transition);
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      padding: 8px 15px;
+      border: 1px solid var(--ml-primary);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.2), transparent);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover::before {
+      left: 100%;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+      text-shadow: var(--ml-glow);
+      background: rgba(255, 87, 34, 0.2);
+      box-shadow: var(--ml-glow);
+    }
+
+    /* Skill Effects */
+    .skill-effect {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(255, 87, 34, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: skillPulse 4s infinite alternate;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes skillPulse {
+      0% { transform: scale(1); opacity: 0.1; }
+      100% { transform: scale(1.5); opacity: 0.3; }
+    }
+
+    /* Battle Notification */
+    .battle-notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--ml-primary);
+      border-radius: 5px;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 2000;
+    }
+
+    .battle-notification.active {
+      opacity: 1;
+      animation: notificationFloat 2s forwards;
+    }
+
+    @keyframes notificationFloat {
+      0% { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+      10% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      90% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      100% { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      nav {
+        padding: 15px 20px;
+      }
+
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(18, 26, 42, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: var(--transition);
+        border-top: 1px solid var(--ml-primary);
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+
+      section {
+        margin: 30px auto;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Battle Notification -->
+  <div class="battle-notification" id="battleNotification"></div>
+
+  <!-- Skill Effects -->
+  <div id="skillEffects"></div>
+
+  <nav id="navbar">
+    <div class="logo">AIMAN | ML HERO</div>
+    <ul class="nav-links">
+      <li><a onclick="showSection('about')">About</a></li>
+      <li><a onclick="showSection('background')">Background</a></li>
+      <li><a onclick="showSection('skills')">Skills</a></li>
+      <li><a onclick="showSection('achievement')">Achievements</a></li>
+      <li><a onclick="showSection('contact')">Contact</a></li>
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1>Welcome to The Battlefield</h1>
+      <p>Prepare for battle with my skills and experience as a Mobile Legends warrior.</p>
+      <a href="#about" class="hero-btn" onclick="showSection('about')">Enter Battle</a>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="section-title">About Me</div>
+    <div class="section-content">
+      A seasoned Mobile Legends warrior with mastery over multiple heroes and battle strategies. Currently climbing the ranks and developing new tactics to dominate the battlefield. My mission is to refine my skills through rigorous training and contribute to team victories.
+    </div>
+    <div class="section-title">Hero Specialization</div>
+    <div class="section-content">
+      Role: Fighter/Assassin<br>Favorite Heroes: Alucard, Gusion, Lancelot<br>Highest Rank: Mythic
+    </div>
+  </section>
+
+  <section id="background">
+    <div class="section-title">Battle History</div>
+    <div class="section-content"><strong>Master of Assassins</strong><br>Mobile Legends, 2024 - Present<br>Specializing in high burst damage and quick eliminations.</div>
+    <div class="section-content"><strong>Ranked Grinder</strong><br>2020–2024 | Highest Rank: Mythic</div>
+    <div class="section-content"><strong>Beginner Training</strong><br>2019–2020 | Learned basics and hero mechanics</div>
+  </section>
+
+  <section id="skills">
+    <div class="section-title">Hero Skills</div>
+    <ul class="list">
+      <li>Mechanical Skills: Fast hands, quick reflexes, precise targeting</li>
+      <li>Game Sense: Map awareness, objective control, rotation timing</li>
+      <li>Team Play: Communication, synergy, adaptability</li>
+    </ul>
+
+    <div class="section-title">Signature Moves</div>
+    <ul class="list">
+      <li>Alucard: Groundsplitter + Whirling Smash combo</li>
+      <li>Gusion: Sword Spike + Shadowblade Slaughter combo</li>
+      <li>Lancelot: Thorned Rose + Puncture combo</li>
+    </ul>
+  </section>
+
+  <section id="achievement">
+    <div class="section-title">Battle Achievements</div>
+    <ul class="list">
+      <li>Reached Mythic rank in Season 25</li>
+      <li>10+ Savage kills in ranked matches</li>
+      <li>70%+ winrate with main heroes</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <div class="section-title">Join My Team</div>
+    <div class="section-content">ID: 123456789<br>Server: Malaysia<br>Main Role: Fighter/Assassin</div>
+  </section>
+
+  <div class="social-links">
+    <a href="#" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    <a href="#" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+  </div>
+
+  <script>
+    // Show battle notification
+    function showNotification(message) {
+      const notification = document.getElementById('battleNotification');
+      notification.textContent = message;
+      notification.classList.add('active');
+      setTimeout(() => {
+        notification.classList.remove('active');
+      }, 2000);
+    }
+
+    // Create skill effects
+    function createSkillEffect(x, y) {
+      const effect = document.createElement('div');
+      effect.classList.add('skill-effect');
+      effect.style.left = x + 'px';
+      effect.style.top = y + 'px';
+      document.getElementById('skillEffects').appendChild(effect);
+      
+      setTimeout(() => {
+        effect.remove();
+      }, 4000);
+    }
+
+    // Show section function with battle notification
+    function showSection(id) {
+      showNotification('PREPARE FOR BATTLE!');
+      
+      // Create random skill effects
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          createSkillEffect(
+            Math.random() * window.innerWidth,
+            Math.random() * window.innerHeight
+          );
+        }, i * 300);
+      }
+      
+      setTimeout(() => {
+        document.querySelectorAll('section').forEach(section => {
+          section.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      }, 800);
+    }
+
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Random skill effects
+    setInterval(() => {
+      createSkillEffect(
+        Math.random() * window.innerWidth,
+        Math.random() * window.innerHeight
+      );
+    }, 3000);
+
+    // Initial notification
+    setTimeout(() => {
+      showNotification('WELCOME TO THE BATTLEFIELD!');
+    }, 1000);
+  </script>
+</body>
+</html>
