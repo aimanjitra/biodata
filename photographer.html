@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aiman | Photographer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #e6b31e;
+      --primary-dark: #c7980e;
+      --secondary: #2c3e50;
+      --dark: #1a1a1a;
+      --darker: #111;
+      --light: #f5f5f5;
+      --gray: #888;
+      --light-gray: #eaeaea;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      color: var(--dark);
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--light-gray);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    /* Navigation */
+    nav {
+      background: white;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      padding: 1rem 3rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+      transition: var(--transition);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--primary);
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 2px;
+      background: var(--primary);
+      margin: 5px;
+      transition: var(--transition);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('selfie.gif') no-repeat center center/cover;
+      color: white;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      padding: 2rem;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-family: 'Playfair Display', serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards 0.3s;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards 0.6s;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards 0.9s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 5rem 0;
+      background: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      color: var(--secondary);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .about-img {
+      flex: 1;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .about-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .about-img:hover img {
+      transform: scale(1.05);
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-text h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--secondary);
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+      color: var(--gray);
+    }
+
+    /* Portfolio Section */
+    .portfolio-section {
+      padding: 5rem 0;
+      background: #f5f5f5;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 5px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 1.5rem;
+      transform: translateY(100%);
+      transition: var(--transition);
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      transform: translateY(0);
+    }
+
+    .portfolio-overlay h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Sections */
+    section {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out, transform 0.5s ease;
+      transform: translateY(30px);
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-content {
+      margin-bottom: 20px;
+      line-height: 1.6;
+      color: var(--gray);
+    }
+
+    .list {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 10px;
+    }
+
+    .list li::before {
+      content: '▹';
+      position: absolute;
+      left: 5px;
+      color: var(--primary);
+    }
+
+    .stars {
+      color: var(--primary);
+    }
+
+    .project-img {
+      width: 100%;
+      max-width: 400px;
+      margin: 15px 0;
+      border-radius: 5px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .project-img:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .publication-link {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      position: relative;
+      font-weight: 600;
+    }
+
+    .publication-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .publication-link:hover::after {
+      width: 100%;
+    }
+
+    .social-links {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .social-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 10px;
+      transition: var(--transition);
+      display: inline-block;
+      padding: 8px 15px;
+      border: 1px solid var(--primary);
+      border-radius: 30px;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+      background: rgba(230, 179, 30, 0.1);
+      box-shadow: var(--shadow);
+    }
+
+    /* View button styles */
+    .view-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      margin-left: 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: bold;
+      border-radius: 3px;
+    }
+    
+    .view-btn:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--shadow);
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: var(--primary);
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2001;
+    }
+    
+    .close-btn:hover {
+      color: var(--primary-dark);
+      transform: rotate(90deg);
+    }
+
+    /* Contact Section */
+    .contact-section {
+      padding: 5rem 0;
+      background: white;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .contact-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: var(--transition);
+      flex: 1;
+      max-width: 300px;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-card i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .contact-card h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.5rem;
+      color: var(--secondary);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        padding: 15px 20px;
+      }
+
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: var(--transition);
+        box-shadow: var(--shadow);
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .about-content {
+        flex-direction: column;
+      }
+
+      .about-img {
+        margin-bottom: 2rem;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      section {
+        margin: 30px auto;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="logo">Aiman Photography</div>
+    <ul class="nav-links">
+      <li><a onclick="showSection('about')">About</a></li>
+      <li><a onclick="showSection('background')">Background</a></li>
+      <li><a onclick="showSection('skills')">Skills</a></li>
+      <li><a onclick="showSection('achievement')">Achievements</a></li>
+      <li><a onclick="showSection('contact')">Contact</a></li>
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Capturing Life's Moments</h1>
+      <p>Professional photographer specializing in portrait, event, and artistic photography</p>
+      <a href="#about" class="btn">View My Work</a>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="section-title">About Me</div>
+      <div class="about-content">
+        <div class="about-img">
+          <img src="photomania-c12658e2884da9a9532da405c62b7847-removebg-preview.png" alt="Aiman - Photographer">
+        </div>
+        <div class="about-text">
+          <h3>Professional Photographer</h3>
+          <p>A passionate photographer with expertise in capturing stunning portraits and memorable events. My mission is to create timeless images that tell stories and evoke emotions.</p>
+          <p>Currently exploring innovative photography techniques and digital enhancements to push creative boundaries in visual storytelling.</p>
+          <div class="section-content">
+            <strong>Photography Association</strong><br>
+            Professional Photographers of Malaysia<br>
+            Member No.: G1259665A<br>
+            Specialization: Portrait & Event Photography
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="background" class="portfolio-section">
+    <div class="container">
+      <div class="section-title">Training & Experience</div>
+      <div class="section-content"><strong>Master of Visual Arts</strong><br>Tokyo Institute of Photography, 2024 - Present<br>Research: "Innovative Applications of Digital Enhancement in Modern Photography"</div>
+      <div class="section-content"><strong>Bachelor of Photography Arts</strong><br>Tokyo Institute of Photography, 2020–2024 | Grade: 1st Class</div>
+      <div class="section-content"><strong>Photography Fundamentals</strong><br>Kedah Art Academy, 2019–2020 | Potential: Recognized</div>
+    </div>
+  </section>
+
+  <section id="skills" class="portfolio-section">
+    <div class="container">
+      <div class="section-title">Language Proficiency</div>
+      <ul class="list">
+        <li>English: Writing <span class="stars">★★★★☆</span> | Speaking <span class="stars">★★★★☆</span></li>
+        <li>Malay: Writing <span class="stars">★★★★★</span> | Speaking <span class="stars">★★★★★</span></li>
+        <li>Japanese: Reading <span class="stars">★★★☆☆</span></li>
+      </ul>
+
+      <div class="section-title">Photography Skills</div>
+      <ul class="list">
+        <li>Technical Skills: Lighting, Composition, Post-Processing, Color Grading</li>
+        <li>Specializations: Portrait Photography, Event Coverage, Photojournalism</li>
+        <li>Equipment: DSLR & Mirrorless Systems, Lighting Equipment, Drones</li>
+      </ul>
+
+      <div class="section-title">Photography Projects</div>
+      <ul class="list">
+        <li>"Food Photography Catalog" project</li>
+        <li>"Menu Photography" for restaurants</li>
+        <li>"Movie Poster Analysis" visual study <button class="view-btn" onclick="showImage('netflix.png')">View</button></li>
+        <li>"Temperature Effects on Film" using NTC Thermistor <button class="view-btn" onclick="showImage('thermistor.png')">View</button></li>
+        <li>"Remote Photography System" using HC-05 <button class="view-btn" onclick="showImage('bluetooth.png')">View</button></li>
+        <li>"Event Attendance System" photography integration <button class="view-btn" onclick="showImage('photo_2025-01-25_21-53-44.jpg')">View</button></li>
+        <li>"Automated Studio Lighting System" using ESP8266 <button class="view-btn" onclick="showImage('photo_2025-01-25_21-30-26.jpg')">View</button></li>
+        <li>"Student Photography Portfolio Web" for young artists<br><a href="https://aimanjitra.github.io/firebase2/login.html" class="publication-link">Portfolio Portal</a></li>
+        <li>"Gallery Security System" using ESP32 and motion alerts <button class="view-btn" onclick="showImage('photo_2023-11-28_15-29-20.jpg')">View</button></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="achievement" class="portfolio-section">
+    <div class="container">
+      <div class="section-title">Experience</div>
+      <div class="section-content"><strong>Photo Editor, Tokyo Visuals | 2023</strong><br>Edited and enhanced photographs for clients and developed new post-processing techniques.</div>
+
+      <div class="section-title">Notable Projects</div>
+      <ul class="list">
+        <li>Participated in the International Photography Exchange Program - Yamanashi University, Japan (2023) <button class="view-btn" onclick="showImage('photo_2025-01-28_17-31-37.jpg')">View</button></li>
+        <li>Attended 7th International Conference on Digital Imaging (ICED 2024) <button class="view-btn" onclick="showImage('iced.png')">View</button></li>
+        <li>Developed "Smart Photography Wristband" using ESP32 and remote triggers (2024) <button class="view-btn" onclick="showImage('smartwatch.png')">View</button></li>
+      </ul>
+      
+      <div class="section-title">Honors</div>
+        <ul class="list">
+        <li>Director's Recognition (Sem 1 2020/2021, Sem 1 2021/2022, Sem 1 2022/2023, Sem 2 2023/2024)</li>
+        <li>Second place at Annual Photography Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex.png')">View</button></li>
+        <li>Silver Medal - Advanced Photography Techniques Competition 2025 <button class="view-btn" onclick="showImage('silver.jpg')">View</button></li>
+      </ul>
+
+      <div class="section-title">Publications</div>
+      <div class="section-content">
+        <a href="https://link.springer.com/chapter/10.1007/978-3-031-78918-2_25" class="publication-link" target="_blank">Student Photography Guidance System</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-title">Contact</div>
+      <div class="contact-info">
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+          <p>aimanjitra01@gmail.com</p>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-phone"></i>
+          <h3>Phone</h3>
+          <p>+60 14-9113900</p>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-map-marker-alt"></i>
+          <h3>Location</h3>
+          <p>Kedah, Malaysia</p>
+        </div>
+      </div>
+      <div class="section-title">References</div>
+      <div class="section-content">
+        Ansel Adams<br>National Geographic Society<br>Master Photographer
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal for displaying images and PDFs -->
+  <div id="modal" class="modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <iframe id="pdf-viewer" style="display:none; width:100%; height:100%; border:none;"></iframe>
+      <img id="modal-image" style="display:none; max-width:100%; max-height:80vh;">
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="https://orcid.org/0009-0009-3268-0120" target="_blank"><i class="fas fa-book-open"></i> Publications</a>
+        <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      </div>
+      <p class="copyright">© 2024 Aiman Photography. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Show section function
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Intersection Observer for section animations
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Modal functions
+    function showPdf(pdfUrl) {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      modalImage.style.display = 'none';
+      pdfViewer.style.display = 'block';
+      pdfViewer.src = pdfUrl;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function showImage(imgUrl) {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      pdfViewer.style.display = 'none';
+      modalImage.style.display = 'block';
+      modalImage.src = imgUrl;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'auto';
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      modal.style.display = 'none';
+      pdfViewer.src = '';
+      modalImage.src = '';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Close modal when clicking outside content
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Initialize hero animation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hero animation is handled by CSS animations
+    });
+  </script>
+</body>
+</html>
