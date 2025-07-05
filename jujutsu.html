@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aiman | Jujutsu Sorcerer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     :root {
@@ -14,7 +14,8 @@
       --dark: #0a0a12;
       --darker: #050509;
       --light: #e0e0e0;
-      --glow: 0 0 15px rgba(255, 0, 80, 0.8);
+      --gray: #888;
+      --glow: 0 0 10px rgba(255, 0, 80, 0.7);
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --cursed-energy: linear-gradient(135deg, #6a00f4 0%, #ff0050 100%);
     }
@@ -30,19 +31,34 @@
     }
 
     body {
-      background-color: var(--darker);
       color: var(--light);
       font-family: 'Montserrat', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 20% 30%, rgba(106, 0, 244, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 80% 70%, rgba(255, 0, 80, 0.1) 0%, transparent 20%);
+      position: relative;
     }
 
-    ::selection {
-      background: var(--primary);
-      color: var(--darker);
+    /* Video Background */
+    #bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -3;
+      object-fit: cover;
+    }
+
+    /* Dark overlay for better text contrast */
+    .cursed-energy {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: rgba(5, 5, 9, 0.7);
+      pointer-events: none;
     }
 
     /* Scrollbar */
@@ -84,7 +100,7 @@
     }
 
     nav .logo {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: bold;
       letter-spacing: 2px;
       background: var(--cursed-energy);
@@ -92,14 +108,8 @@
       background-clip: text;
       color: transparent;
       text-shadow: var(--glow);
-      font-family: 'Zen Dots', cursive;
+      font-family: 'Nanum Gothic Coding', monospace;
       transition: var(--transition);
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      0% { text-shadow: 0 0 5px rgba(255, 0, 80, 0.5); }
-      100% { text-shadow: 0 0 20px rgba(255, 0, 80, 0.9); }
     }
 
     nav ul {
@@ -118,23 +128,6 @@
       transition: var(--transition);
       position: relative;
       padding: 0.5rem 0;
-    }
-
-    nav ul li a::before {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: rgba(255, 0, 80, 0.1);
-      z-index: -1;
-      transition: var(--transition);
-    }
-
-    nav ul li a:hover::before,
-    nav ul li a.active::before {
-      width: 100%;
     }
 
     nav ul li a::after {
@@ -181,7 +174,6 @@
       min-height: 100vh;
       position: relative;
       padding-top: 80px;
-      overflow: hidden;
     }
 
     .left, .right {
@@ -216,13 +208,12 @@
     }
 
     .left h2, .right h2 {
-      font-size: 3.5rem;
+      font-size: 3rem;
       margin-bottom: 10px;
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease 0.3s;
-      font-family: 'Zen Dots', cursive;
-      text-transform: uppercase;
+      font-family: 'Nanum Gothic Coding', monospace;
     }
 
     .left h2 {
@@ -230,7 +221,6 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: textGlow 2s infinite alternate;
     }
 
     .right h2 {
@@ -238,12 +228,6 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: textGlow 2s infinite alternate-reverse;
-    }
-
-    @keyframes textGlow {
-      0% { text-shadow: 0 0 5px rgba(106, 0, 244, 0.5); }
-      100% { text-shadow: 0 0 20px rgba(255, 0, 80, 0.9); }
     }
 
     .left p, .right p {
@@ -276,9 +260,8 @@
       -webkit-backdrop-filter: blur(5px);
       border: 1px solid rgba(255, 0, 80, 0.2);
       box-shadow: 
-        0 0 30px rgba(106, 0, 244, 0.5),
-        0 0 60px rgba(255, 0, 80, 0.3);
-      transition: var(--transition);
+        0 0 20px rgba(106, 0, 244, 0.3),
+        0 0 40px rgba(255, 0, 80, 0.2);
     }
 
     .image-container::before {
@@ -286,7 +269,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(106, 0, 244, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+      background: radial-gradient(circle, rgba(106, 0, 244, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
       z-index: -1;
       animation: pulse 8s infinite alternate;
     }
@@ -341,13 +324,6 @@
       width: 100%;
       height: 3px;
       background: var(--cursed-energy);
-      animation: borderGlow 3s infinite;
-    }
-
-    @keyframes borderGlow {
-      0% { opacity: 0.5; }
-      50% { opacity: 1; }
-      100% { opacity: 0.5; }
     }
 
     section.active {
@@ -357,21 +333,14 @@
     }
 
     .section-title {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: bold;
       margin-bottom: 20px;
       color: var(--primary);
       position: relative;
       display: inline-block;
-      font-family: 'Zen Dots', cursive;
-      text-shadow: 0 0 10px rgba(255, 0, 80, 0.5);
-      animation: titleFloat 3s infinite ease-in-out;
-    }
-
-    @keyframes titleFloat {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(0); }
+      font-family: 'Nanum Gothic Coding', monospace;
+      text-shadow: 0 0 5px rgba(255, 0, 80, 0.5);
     }
 
     .section-title::after {
@@ -383,12 +352,6 @@
       height: 2px;
       background: var(--cursed-energy);
       box-shadow: var(--glow);
-      animation: lineExtend 2s infinite alternate;
-    }
-
-    @keyframes lineExtend {
-      0% { width: 40px; }
-      100% { width: 100px; }
     }
 
     .section-content {
@@ -404,33 +367,21 @@
 
     .list li {
       position: relative;
-      padding-left: 30px;
-      margin-bottom: 15px;
-      transition: var(--transition);
-    }
-
-    .list li:hover {
-      transform: translateX(5px);
+      padding-left: 25px;
+      margin-bottom: 10px;
     }
 
     .list li::before {
-      content: '✧';
+      content: '◉';
       position: absolute;
       left: 5px;
       color: var(--primary);
-      font-family: 'Zen Dots', cursive;
+      font-family: 'Nanum Gothic Coding', monospace;
       text-shadow: var(--glow);
-      animation: spin 5s infinite linear;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
 
     .stars {
       color: #ffcc00;
-      text-shadow: 0 0 5px gold;
     }
 
     .project-img {
@@ -441,14 +392,12 @@
       box-shadow: none;
       transition: var(--transition);
       border: 1px solid rgba(255, 0, 80, 0.3);
-      cursor: pointer;
     }
 
     .project-img:hover {
-      transform: translateY(-5px) scale(1.02);
+      transform: translateY(-5px);
       box-shadow: var(--glow);
       border-color: var(--primary);
-      filter: brightness(1.1);
     }
 
     .publication-link {
@@ -457,24 +406,7 @@
       transition: var(--transition);
       display: inline-block;
       position: relative;
-      font-family: 'Zen Dots', cursive;
-      padding: 0 5px;
-    }
-
-    .publication-link::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background: rgba(255, 0, 80, 0.1);
-      z-index: -1;
-      transition: var(--transition);
-    }
-
-    .publication-link:hover::before {
-      width: 100%;
+      font-family: 'Nanum Gothic Coding', monospace;
     }
 
     .publication-link::after {
@@ -501,30 +433,13 @@
       color: var(--primary);
       text-decoration: none;
       font-weight: bold;
-      margin: 0 15px;
+      margin: 0 10px;
       transition: var(--transition);
       display: inline-block;
-      font-family: 'Zen Dots', cursive;
-      padding: 8px 15px;
+      font-family: 'Nanum Gothic Coding', monospace;
+      padding: 5px 10px;
       border: 1px solid var(--primary);
       border-radius: 3px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .social-links a::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 0, 80, 0.2), transparent);
-      transition: var(--transition);
-    }
-
-    .social-links a:hover::before {
-      left: 100%;
     }
 
     .social-links a:hover {
@@ -532,21 +447,6 @@
       text-shadow: var(--glow);
       background: rgba(255, 0, 80, 0.2);
       box-shadow: var(--glow);
-    }
-
-    /* Cursed Energy Background */
-    .cursed-energy {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      opacity: 0.1;
-      pointer-events: none;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(106, 0, 244, 0.3) 0%, transparent 20%),
-        radial-gradient(circle at 80% 70%, rgba(255, 0, 80, 0.3) 0%, transparent 20%);
     }
 
     /* Floating cursed spirits */
@@ -567,13 +467,6 @@
       border-radius: 50%;
       animation: float 15s infinite linear;
       filter: blur(5px);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .spirit:hover {
-      opacity: 0.5;
-      transform: scale(1.5);
     }
 
     @keyframes float {
@@ -590,37 +483,18 @@
       background: var(--primary);
       color: var(--darker);
       border: none;
-      padding: 5px 10px;
+      padding: 3px 8px;
       margin-left: 10px;
       font-size: 0.8rem;
       cursor: pointer;
       transition: var(--transition);
-      font-family: 'Zen Dots', cursive;
+      font-family: 'Nanum Gothic Coding', monospace;
       font-weight: bold;
-      border-radius: 3px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .view-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: var(--transition);
-    }
-    
-    .view-btn:hover::before {
-      left: 100%;
     }
     
     .view-btn:hover {
       background: var(--primary-dark);
       box-shadow: var(--glow);
-      transform: translateY(-2px);
     }
     
     /* Modal styles */
@@ -632,7 +506,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
+      background-color: rgba(0, 0, 0, 0.9);
       overflow: auto;
     }
     
@@ -670,7 +544,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(106, 0, 244, 0.9) 0%, rgba(5, 5, 9, 0.95) 70%);
+      background: radial-gradient(circle, rgba(106, 0, 244, 0.8) 0%, rgba(5, 5, 9, 0.9) 70%);
       z-index: 3000;
       display: flex;
       justify-content: center;
@@ -678,7 +552,7 @@
       flex-direction: column;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.8s ease;
+      transition: opacity 1s ease;
     }
 
     .domain-expansion.active {
@@ -687,23 +561,14 @@
     }
 
     .domain-text {
-      font-size: 4rem;
-      font-family: 'Zen Dots', cursive;
+      font-size: 3rem;
+      font-family: 'Nanum Gothic Coding', monospace;
       background: var(--cursed-energy);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 30px rgba(255, 0, 80, 0.8);
+      text-shadow: 0 0 20px rgba(255, 0, 80, 0.8);
       animation: domainPulse 2s infinite alternate;
-      margin-bottom: 2rem;
-    }
-
-    .domain-kanji {
-      font-size: 6rem;
-      font-family: 'Zen Dots', cursive;
-      color: white;
-      opacity: 0.8;
-      animation: floatUp 3s infinite ease-in-out;
     }
 
     @keyframes domainPulse {
@@ -711,55 +576,6 @@
       100% { transform: scale(1.1); opacity: 1; }
     }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 0.5; }
-      50% { transform: translateY(-20px); opacity: 1; }
-      100% { transform: translateY(0); opacity: 0.5; }
-    }
-
-    /* Sukuna's Slash Effect */
-    .slash-effect {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        45deg,
-        transparent 48%,
-        rgba(255, 0, 80, 0.3) 49%,
-        rgba(255, 0, 80, 0.3) 51%,
-        transparent 52%
-      );
-      background-size: 100px 100px;
-      z-index: -1;
-      opacity: 0;
-      pointer-events: none;
-      animation: slashMove 20s infinite linear;
-    }
-
-    @keyframes slashMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 100px 100px; }
-    }
-
-    /* Cursed Seal Animation */
-    .cursed-seal {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle, rgba(255, 0, 80, 0.2) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: sealPulse 4s infinite alternate;
-      pointer-events: none;
-    }
-
-    @keyframes sealPulse {
-      0% { transform: scale(1); opacity: 0.1; }
-      100% { transform: scale(1.5); opacity: 0.3; }
-    }
-
-    /* Responsive Design */
     @media (max-width: 900px) {
       nav {
         padding: 15px 20px;
@@ -809,10 +625,6 @@
         padding: 40px 20px;
       }
 
-      .left h2, .right h2 {
-        font-size: 2.5rem;
-      }
-
       .left p, .right p {
         max-width: 100%;
       }
@@ -829,23 +641,24 @@
       .domain-text {
         font-size: 2rem;
       }
-
-      .domain-kanji {
-        font-size: 3rem;
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Cursed Energy Background -->
+  <!-- Video Background -->
+  <video autoplay muted loop id="bg-video" preload="auto">
+    <source src="Jujutsu Kaisen - SPECIALZ.mp4" type="video/mp4">
+    <!-- Fallback image if video doesn't load -->
+    <img src="fallback-image.jpg" alt="Background" style="width: 100%; height: auto; position: fixed; z-index: -3;">
+  </video>
+
+  <!-- Cursed Energy Overlay -->
   <div class="cursed-energy"></div>
-  <div class="floating-spirits" id="floatingSpirits"></div>
-  <div class="slash-effect"></div>
+  <div class="floating-spirits"></div>
 
   <!-- Domain Expansion Effect -->
   <div class="domain-expansion" id="domainExpansion">
-    <div class="domain-text">Infinite Void</div>
-    <div class="domain-kanji">無量空処</div>
+    <div class="domain-text">Jujutsu UniMAP</div>
   </div>
 
   <nav id="navbar">
@@ -854,7 +667,7 @@
       <li><a onclick="showSection('about')">About</a></li>
       <li><a onclick="showSection('background')">Background</a></li>
       <li><a onclick="showSection('skills')">Techniques</a></li>
-      <li><a onclick="showSection('achievement')">Missions</a></li>
+      <li><a onclick="showSection('achievement')">Achievements</a></li>
       <li><a onclick="showSection('contact')">Contact</a></li>
     </ul>
     <div class="hamburger">
@@ -977,49 +790,28 @@
 
   <script>
     // Create floating cursed spirits
-    const floatingContainer = document.getElementById('floatingSpirits');
-    for (let i = 0; i < 20; i++) {
+    const floatingContainer = document.querySelector('.floating-spirits');
+    for (let i = 0; i < 15; i++) {
       const spirit = document.createElement('div');
       spirit.classList.add('spirit');
       const size = Math.random() * 100 + 50;
       const posX = Math.random() * 100;
-      const posY = Math.random() * 100 + 100; // Start below viewport
+      const posY = Math.random() * 100;
       const delay = Math.random() * 10;
       const duration = Math.random() * 20 + 10;
       
       spirit.style.width = `${size}px`;
       spirit.style.height = `${size}px`;
-      spirit.style.left = `${posX}%`;
       spirit.style.top = `${posY}%`;
+      spirit.style.left = `${posX}%`;
       spirit.style.animationDelay = `${delay}s`;
       spirit.style.animationDuration = `${duration}s`;
       
       // Random purple/pink color
       const hue = Math.random() * 30 + 300; // 300-330 for purple/pink range
-      spirit.style.background = `hsla(${hue}, 100%, 50%, ${Math.random() * 0.2 + 0.1})`;
-      
-      // Add cursed seal effect randomly
-      if (Math.random() > 0.7) {
-        const seal = document.createElement('div');
-        seal.classList.add('cursed-seal');
-        seal.style.width = `${size * 2}px`;
-        seal.style.height = `${size * 2}px`;
-        seal.style.left = `-${size / 2}px`;
-        seal.style.top = `-${size / 2}px`;
-        spirit.appendChild(seal);
-      }
+      spirit.style.background = `hsla(${hue}, 100%, 50%, 0.1)`;
       
       floatingContainer.appendChild(spirit);
-      
-      // Make spirits interactive
-      spirit.addEventListener('click', () => {
-        spirit.style.animation = 'none';
-        spirit.style.transform = 'scale(2)';
-        spirit.style.opacity = '0';
-        setTimeout(() => {
-          spirit.remove();
-        }, 500);
-      });
     }
 
     // Activate split container animations when page loads
@@ -1028,6 +820,17 @@
       setTimeout(() => {
         splitContainer.classList.add('active');
       }, 500);
+      
+      // Trigger domain expansion on first section click
+      document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          const domain = document.getElementById('domainExpansion');
+          domain.classList.add('active');
+          setTimeout(() => {
+            domain.classList.remove('active');
+          }, 1500);
+        });
+      });
     });
 
     // Mobile menu toggle
@@ -1069,10 +872,8 @@
         document.getElementById(id).classList.add('active');
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         
-        setTimeout(() => {
-          domain.classList.remove('active');
-        }, 800);
-      }, 800);
+        domain.classList.remove('active');
+      }, 1000);
     }
 
     // Intersection Observer for section animations
@@ -1137,39 +938,19 @@
     document.addEventListener('mousemove', function(e) {
       const cursor = document.createElement('div');
       cursor.classList.add('spirit');
-      cursor.style.width = '15px';
-      cursor.style.height = '15px';
-      cursor.style.left = e.pageX - 7 + 'px';
-      cursor.style.top = e.pageY - 7 + 'px';
-      cursor.style.opacity = '0.7';
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      cursor.style.left = e.pageX + 'px';
+      cursor.style.top = e.pageY + 'px';
+      cursor.style.opacity = '0.5';
       cursor.style.animation = 'none';
-      cursor.style.pointerEvents = 'none';
-      cursor.style.background = 'var(--primary)';
-      cursor.style.filter = 'blur(2px)';
       document.body.appendChild(cursor);
       
       // Remove after animation
       setTimeout(() => {
-        cursor.style.transform = 'scale(0)';
-        cursor.style.opacity = '0';
-        setTimeout(() => {
-          cursor.remove();
-        }, 300);
-      }, 300);
+        cursor.remove();
+      }, 1000);
     });
-
-    // Random cursed seal spawn
-    setInterval(() => {
-      const seal = document.createElement('div');
-      seal.classList.add('cursed-seal');
-      seal.style.left = Math.random() * 100 + 'vw';
-      seal.style.top = Math.random() * 100 + 'vh';
-      document.body.appendChild(seal);
-      
-      setTimeout(() => {
-        seal.remove();
-      }, 4000);
-    }, 2000);
   </script>
 </body>
 </html>
