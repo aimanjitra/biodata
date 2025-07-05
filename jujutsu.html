@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aiman | Jujutsu Sorcerer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #ff0050;
+      --primary-dark: #cc0040;
+      --secondary: #6a00f4;
+      --dark: #0a0a12;
+      --darker: #050509;
+      --light: #e0e0e0;
+      --glow: 0 0 15px rgba(255, 0, 80, 0.8);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --cursed-energy: linear-gradient(135deg, #6a00f4 0%, #ff0050 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--darker);
+      color: var(--light);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(106, 0, 244, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 80, 0.1) 0%, transparent 20%);
+    }
+
+    ::selection {
+      background: var(--primary);
+      color: var(--darker);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--cursed-energy);
+      border-radius: 4px;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(10, 10, 18, 0.9);
+      color: var(--light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 0, 80, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      padding: 1rem 3rem;
+      box-shadow: var(--glow);
+      background: rgba(5, 5, 9, 0.95);
+    }
+
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: var(--cursed-energy);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: var(--glow);
+      font-family: 'Zen Dots', cursive;
+      transition: var(--transition);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px rgba(255, 0, 80, 0.5); }
+      100% { text-shadow: 0 0 20px rgba(255, 0, 80, 0.9); }
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    nav ul li a::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(255, 0, 80, 0.1);
+      z-index: -1;
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::before,
+    nav ul li a.active::before {
+      width: 100%;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--primary);
+      text-shadow: var(--glow);
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 2px;
+      background: var(--primary);
+      margin: 5px;
+      transition: var(--transition);
+      box-shadow: var(--glow);
+    }
+
+    /* Split Container */
+    .split-container {
+      display: flex;
+      height: auto;
+      min-height: 100vh;
+      position: relative;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+
+    .left, .right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      transition: all 0.6s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .left {
+      background: rgba(106, 0, 244, 0.1);
+      color: var(--light);
+      flex-direction: column;
+      text-align: right;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border-right: 1px solid rgba(106, 0, 244, 0.2);
+    }
+
+    .right {
+      background: rgba(255, 0, 80, 0.1);
+      color: var(--light);
+      flex-direction: column;
+      text-align: left;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border-left: 1px solid rgba(255, 0, 80, 0.2);
+    }
+
+    .left h2, .right h2 {
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease 0.3s;
+      font-family: 'Zen Dots', cursive;
+      text-transform: uppercase;
+    }
+
+    .left h2 {
+      background: linear-gradient(90deg, #6a00f4, #9d4dff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: textGlow 2s infinite alternate;
+    }
+
+    .right h2 {
+      background: linear-gradient(90deg, #ff0050, #ff6b9d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: textGlow 2s infinite alternate-reverse;
+    }
+
+    @keyframes textGlow {
+      0% { text-shadow: 0 0 5px rgba(106, 0, 244, 0.5); }
+      100% { text-shadow: 0 0 20px rgba(255, 0, 80, 0.9); }
+    }
+
+    .left p, .right p {
+      max-width: 400px;
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease 0.5s;
+    }
+
+    .split-container.active .left h2,
+    .split-container.active .right h2,
+    .split-container.active .left p,
+    .split-container.active .right p {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .image-container {
+      background-color: rgba(0, 0, 0, 0.5);
+      text-align: center;
+      padding: 50px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 0, 80, 0.2);
+      box-shadow: 
+        0 0 30px rgba(106, 0, 244, 0.5),
+        0 0 60px rgba(255, 0, 80, 0.3);
+      transition: var(--transition);
+    }
+
+    .image-container::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(106, 0, 244, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+      z-index: -1;
+      animation: pulse 8s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.1; }
+      100% { transform: scale(1.1); opacity: 0.3; }
+    }
+
+    .image-container img {
+      width: 300px;
+      height: auto;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      object-fit: contain;
+      transition: var(--transition);
+      transform: scale(0.9);
+      opacity: 0;
+      filter: drop-shadow(0 0 10px rgba(255, 0, 80, 0.5));
+    }
+
+    .split-container.active .image-container img {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    /* Sections */
+    section {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out, transform 0.5s ease;
+      transform: translateY(30px);
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background: rgba(10, 10, 18, 0.7);
+      border-radius: 0;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 0, 80, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--cursed-energy);
+      animation: borderGlow 3s infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+
+    section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      font-family: 'Zen Dots', cursive;
+      text-shadow: 0 0 10px rgba(255, 0, 80, 0.5);
+      animation: titleFloat 3s infinite ease-in-out;
+    }
+
+    @keyframes titleFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--cursed-energy);
+      box-shadow: var(--glow);
+      animation: lineExtend 2s infinite alternate;
+    }
+
+    @keyframes lineExtend {
+      0% { width: 40px; }
+      100% { width: 100px; }
+    }
+
+    .section-content {
+      margin-bottom: 20px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .list {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 15px;
+      transition: var(--transition);
+    }
+
+    .list li:hover {
+      transform: translateX(5px);
+    }
+
+    .list li::before {
+      content: '✧';
+      position: absolute;
+      left: 5px;
+      color: var(--primary);
+      font-family: 'Zen Dots', cursive;
+      text-shadow: var(--glow);
+      animation: spin 5s infinite linear;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .stars {
+      color: #ffcc00;
+      text-shadow: 0 0 5px gold;
+    }
+
+    .project-img {
+      width: 100%;
+      max-width: 400px;
+      margin: 15px 0;
+      border-radius: 0;
+      box-shadow: none;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 0, 80, 0.3);
+      cursor: pointer;
+    }
+
+    .project-img:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: var(--glow);
+      border-color: var(--primary);
+      filter: brightness(1.1);
+    }
+
+    .publication-link {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      position: relative;
+      font-family: 'Zen Dots', cursive;
+      padding: 0 5px;
+    }
+
+    .publication-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 0, 80, 0.1);
+      z-index: -1;
+      transition: var(--transition);
+    }
+
+    .publication-link:hover::before {
+      width: 100%;
+    }
+
+    .publication-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .publication-link:hover::after {
+      width: 100%;
+    }
+
+    .social-links {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .social-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 15px;
+      transition: var(--transition);
+      display: inline-block;
+      font-family: 'Zen Dots', cursive;
+      padding: 8px 15px;
+      border: 1px solid var(--primary);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 80, 0.2), transparent);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover::before {
+      left: 100%;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+      text-shadow: var(--glow);
+      background: rgba(255, 0, 80, 0.2);
+      box-shadow: var(--glow);
+    }
+
+    /* Cursed Energy Background */
+    .cursed-energy {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.1;
+      pointer-events: none;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(106, 0, 244, 0.3) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 80, 0.3) 0%, transparent 20%);
+    }
+
+    /* Floating cursed spirits */
+    .floating-spirits {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .spirit {
+      position: absolute;
+      opacity: 0.1;
+      background: var(--cursed-energy);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+      filter: blur(5px);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .spirit:hover {
+      opacity: 0.5;
+      transform: scale(1.5);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+      }
+    }
+
+    /* View button styles */
+    .view-btn {
+      background: var(--primary);
+      color: var(--darker);
+      border: none;
+      padding: 5px 10px;
+      margin-left: 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Zen Dots', cursive;
+      font-weight: bold;
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .view-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: var(--transition);
+    }
+    
+    .view-btn:hover::before {
+      left: 100%;
+    }
+    
+    .view-btn:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--glow);
+      transform: translateY(-2px);
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: var(--primary);
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2001;
+      text-shadow: var(--glow);
+    }
+    
+    .close-btn:hover {
+      color: var(--primary-dark);
+      transform: rotate(90deg);
+    }
+
+    /* Domain Expansion effect */
+    .domain-expansion {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(106, 0, 244, 0.9) 0%, rgba(5, 5, 9, 0.95) 70%);
+      z-index: 3000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    .domain-expansion.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .domain-text {
+      font-size: 4rem;
+      font-family: 'Zen Dots', cursive;
+      background: var(--cursed-energy);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(255, 0, 80, 0.8);
+      animation: domainPulse 2s infinite alternate;
+      margin-bottom: 2rem;
+    }
+
+    .domain-kanji {
+      font-size: 6rem;
+      font-family: 'Zen Dots', cursive;
+      color: white;
+      opacity: 0.8;
+      animation: floatUp 3s infinite ease-in-out;
+    }
+
+    @keyframes domainPulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.1); opacity: 1; }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(-20px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 0.5; }
+    }
+
+    /* Sukuna's Slash Effect */
+    .slash-effect {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        45deg,
+        transparent 48%,
+        rgba(255, 0, 80, 0.3) 49%,
+        rgba(255, 0, 80, 0.3) 51%,
+        transparent 52%
+      );
+      background-size: 100px 100px;
+      z-index: -1;
+      opacity: 0;
+      pointer-events: none;
+      animation: slashMove 20s infinite linear;
+    }
+
+    @keyframes slashMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+
+    /* Cursed Seal Animation */
+    .cursed-seal {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(255, 0, 80, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: sealPulse 4s infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes sealPulse {
+      0% { transform: scale(1); opacity: 0.1; }
+      100% { transform: scale(1.5); opacity: 0.3; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      nav {
+        padding: 15px 20px;
+      }
+
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(17, 17, 17, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: var(--transition);
+        border-top: 1px solid var(--primary);
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      .split-container {
+        flex-direction: column;
+      }
+
+      .left, .right {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .left h2, .right h2 {
+        font-size: 2.5rem;
+      }
+
+      .left p, .right p {
+        max-width: 100%;
+      }
+
+      .image-container {
+        padding: 30px;
+      }
+
+      section {
+        margin: 30px auto;
+        padding: 20px;
+      }
+
+      .domain-text {
+        font-size: 2rem;
+      }
+
+      .domain-kanji {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cursed Energy Background -->
+  <div class="cursed-energy"></div>
+  <div class="floating-spirits" id="floatingSpirits"></div>
+  <div class="slash-effect"></div>
+
+  <!-- Domain Expansion Effect -->
+  <div class="domain-expansion" id="domainExpansion">
+    <div class="domain-text">Infinite Void</div>
+    <div class="domain-kanji">無量空処</div>
+  </div>
+
+  <nav id="navbar">
+    <div class="logo">呪術師 AIMAN</div>
+    <ul class="nav-links">
+      <li><a onclick="showSection('about')">About</a></li>
+      <li><a onclick="showSection('background')">Background</a></li>
+      <li><a onclick="showSection('skills')">Techniques</a></li>
+      <li><a onclick="showSection('achievement')">Missions</a></li>
+      <li><a onclick="showSection('contact')">Contact</a></li>
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <div class="split-container">
+    <div class="left">
+      <h2>呪術師</h2>
+      <p>As a jujutsu sorcerer, I wield cursed energy to protect the world from curses and malicious spirits, maintaining balance between the physical and spiritual realms.</p>
+    </div>
+
+    <div class="image-container">
+      <img src="photomania-c12658e2884da9a9532da405c62b7847-removebg-preview.png" alt="Aiman - Jujutsu Sorcerer">
+      <div class="floating-spirits"></div>
+    </div>
+
+    <div class="right">
+      <h2>術師</h2>
+      <p>Specializing in cursed techniques and domain expansions, I develop powerful countermeasures against curses using both ancient wisdom and modern technology.</p>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="section-title">About Me</div>
+    <div class="section-content">
+      A Grade 1 Jujutsu Sorcerer with mastery over cursed energy manipulation. Currently researching advanced domain expansion techniques to combat special grade curses. My mission is to refine my abilities through rigorous training and contribute to the development of new jujutsu techniques that can protect humanity from the growing threat of curses.
+    </div>
+    <div class="section-title">Sorcerer Affiliation</div>
+    <div class="section-content">
+      Tokyo Jujutsu High<br>Registration No.: G1259665A<br>Specialization: Cursed Energy Manipulation
+    </div>
+  </section>
+
+  <section id="background">
+    <div class="section-title">Training</div>
+    <div class="section-content"><strong>Master of Cursed Techniques</strong><br>Tokyo Jujutsu High, 2024 - Present<br>Research: "Innovative Applications of Domain Expansion in Modern Exorcism"</div>
+    <div class="section-content"><strong>Bachelor of Jujutsu Arts</strong><br>Tokyo Jujutsu High, 2020–2024 | Grade: 1st Class</div>
+    <div class="section-content"><strong>Cursed Energy Awakening</strong><br>Kedah Spiritual Academy, 2019–2020 | Potential: Recognized</div>
+  </section>
+
+  <section id="skills">
+    <div class="section-title">Language Proficiency</div>
+    <ul class="list">
+      <li>English: Writing <span class="stars">★★★★☆</span> | Speaking <span class="stars">★★★★☆</span></li>
+      <li>Malay: Writing <span class="stars">★★★★★</span> | Speaking <span class="stars">★★★★★</span></li>
+      <li>Ancient Jujutsu Script: Reading <span class="stars">★★★☆☆</span></li>
+    </ul>
+
+    <div class="section-title">Cursed Techniques</div>
+    <ul class="list">
+      <li>Energy Manipulation: Cursed Energy Flow, Black Flash, Reverse Cursed Technique</li>
+      <li>Domain Expansion: Infinite Void (Modified), Simple Domain</li>
+      <li>Tools: Cursed Weapons, Talismans, Barrier Techniques</li>
+    </ul>
+
+    <div class="section-title">Mission Reports</div>
+    <ul class="list">
+      <li>"Food Ordering System" cursed energy application project</li>
+      <li>"Menu Ordering System" using cursed speech techniques</li>
+      <li>"Netflix Movie Dataset Analysis" using clairvoyance <button class="view-btn" onclick="showImage('netflix.png')">View</button></li>
+      <li>"Temperature Regulation Talisman" using NTC Thermistor <button class="view-btn" onclick="showImage('thermistor.png')">View</button></li>
+      <li>"Cursed Energy Home Automation System" using HC-05 <button class="view-btn" onclick="showImage('bluetooth.png')">View</button></li>
+      <li>"Spiritual Counter System" using ancient counting techniques <button class="view-btn" onclick="showImage('photo_2025-01-25_21-53-44.jpg')">View</button></li>
+      <li>"Automated Shrine Purification System" using ESP8266 <button class="view-btn" onclick="showImage('photo_2025-01-25_21-30-26.jpg')">View</button></li>
+      <li>"Student Spiritual Guidance Web" for young sorcerers<br><a href="https://aimanjitra.github.io/firebase2/login.html" class="publication-link">Guidance Portal</a></li>
+      <li>"Sacred Ground Security System" using ESP32 and spiritual alerts <button class="view-btn" onclick="showImage('photo_2023-11-28_15-29-20.jpg')">View</button></li>
+    </ul>
+  </section>
+
+  <section id="achievement">
+    <div class="section-title">Experience</div>
+    <div class="section-content"><strong>Cursed Spirit Analyst, Tokyo HQ | 2023</strong><br>Analyzed curse manifestations and developed countermeasures for field agents.</div>
+
+    <div class="section-title">Notable Missions</div>
+    <ul class="list">
+      <li>Participated in the International Sorcerer Exchange Program - Yamanashi University, Japan (2023) <button class="view-btn" onclick="showImage('photo_2025-01-28_17-31-37.jpg')">View</button></li>
+      <li>Attended 7th International Conference on Cursed Energy (ICED 2024) <button class="view-btn" onclick="showImage('iced.png')">View</button></li>
+      <li>Developed "Spiritual Guardian Wristband" using ESP32 and communication talismans (2024) <button class="view-btn" onclick="showImage('smartwatch.png')">View</button></li>
+    </ul>
+    
+    <div class="section-title">Honors</div>
+      <ul class="list">
+      <li>Headmaster's Recognition (Sem 1 2020/2021, Sem 1 2021/2022, Sem 1 2022/2023, Sem 2 2023/2024)</li>
+      <li>Second place at Annual Sorcerer Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex.png')">View</button></li>
+      <li>Silver Medal - Advanced Technique Development Competition 2025 <button class="view-btn" onclick="showImage('silver.jpg')">View</button></li>
+    </ul>
+
+    <div class="section-title">Scrolls</div>
+    <div class="section-content">
+      <a href="https://link.springer.com/chapter/10.1007/978-3-031-78918-2_25" class="publication-link" target="_blank">Student Spiritual Guidance System</a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-title">Contact</div>
+    <div class="section-content">Owl Post: aimanjitra01@gmail.com<br>Cursed Communication: +60 14-9113900<br>Location: Kedah Branch, Malaysia</div>
+    <div class="section-title">References</div>
+    <div class="section-content">
+      Satoru Gojo<br>Tokyo Jujutsu High<br>Special Grade Sorcerer
+    </div>
+  </section>
+
+  <!-- Modal for displaying images and PDFs -->
+  <div id="modal" class="modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <iframe id="pdf-viewer" style="display:none; width:100%; height:100%; border:none;"></iframe>
+      <img id="modal-image" style="display:none; max-width:100%; max-height:80vh;">
+    </div>
+  </div>
+
+  <div class="social-links">
+    <a href="https://orcid.org/0009-0009-3268-0120" target="_blank"><i class="fas fa-scroll"></i> Sorcerer Scrolls</a>
+    <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank"><i class="fas fa-hand-sparkles"></i> Jujutsu Network</a>
+  </div>
+
+  <script>
+    // Create floating cursed spirits
+    const floatingContainer = document.getElementById('floatingSpirits');
+    for (let i = 0; i < 20; i++) {
+      const spirit = document.createElement('div');
+      spirit.classList.add('spirit');
+      const size = Math.random() * 100 + 50;
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100 + 100; // Start below viewport
+      const delay = Math.random() * 10;
+      const duration = Math.random() * 20 + 10;
+      
+      spirit.style.width = `${size}px`;
+      spirit.style.height = `${size}px`;
+      spirit.style.left = `${posX}%`;
+      spirit.style.top = `${posY}%`;
+      spirit.style.animationDelay = `${delay}s`;
+      spirit.style.animationDuration = `${duration}s`;
+      
+      // Random purple/pink color
+      const hue = Math.random() * 30 + 300; // 300-330 for purple/pink range
+      spirit.style.background = `hsla(${hue}, 100%, 50%, ${Math.random() * 0.2 + 0.1})`;
+      
+      // Add cursed seal effect randomly
+      if (Math.random() > 0.7) {
+        const seal = document.createElement('div');
+        seal.classList.add('cursed-seal');
+        seal.style.width = `${size * 2}px`;
+        seal.style.height = `${size * 2}px`;
+        seal.style.left = `-${size / 2}px`;
+        seal.style.top = `-${size / 2}px`;
+        spirit.appendChild(seal);
+      }
+      
+      floatingContainer.appendChild(spirit);
+      
+      // Make spirits interactive
+      spirit.addEventListener('click', () => {
+        spirit.style.animation = 'none';
+        spirit.style.transform = 'scale(2)';
+        spirit.style.opacity = '0';
+        setTimeout(() => {
+          spirit.remove();
+        }, 500);
+      });
+    }
+
+    // Activate split container animations when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      const splitContainer = document.querySelector('.split-container');
+      setTimeout(() => {
+        splitContainer.classList.add('active');
+      }, 500);
+    });
+
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Show section function with domain expansion effect
+    function showSection(id) {
+      const domain = document.getElementById('domainExpansion');
+      domain.classList.add('active');
+      
+      setTimeout(() => {
+        document.querySelectorAll('section').forEach(section => {
+          section.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        
+        setTimeout(() => {
+          domain.classList.remove('active');
+        }, 800);
+      }, 800);
+    }
+
+    // Intersection Observer for section animations
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Modal functions
+    function showPdf(pdfUrl) {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      modalImage.style.display = 'none';
+      pdfViewer.style.display = 'block';
+      pdfViewer.src = pdfUrl;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function showImage(imgUrl) {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      pdfViewer.style.display = 'none';
+      modalImage.style.display = 'block';
+      modalImage.src = imgUrl;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      const pdfViewer = document.getElementById('pdf-viewer');
+      const modalImage = document.getElementById('modal-image');
+      
+      modal.style.display = 'none';
+      pdfViewer.src = '';
+      modalImage.src = '';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Close modal when clicking outside content
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Cursed energy cursor effect
+    document.addEventListener('mousemove', function(e) {
+      const cursor = document.createElement('div');
+      cursor.classList.add('spirit');
+      cursor.style.width = '15px';
+      cursor.style.height = '15px';
+      cursor.style.left = e.pageX - 7 + 'px';
+      cursor.style.top = e.pageY - 7 + 'px';
+      cursor.style.opacity = '0.7';
+      cursor.style.animation = 'none';
+      cursor.style.pointerEvents = 'none';
+      cursor.style.background = 'var(--primary)';
+      cursor.style.filter = 'blur(2px)';
+      document.body.appendChild(cursor);
+      
+      // Remove after animation
+      setTimeout(() => {
+        cursor.style.transform = 'scale(0)';
+        cursor.style.opacity = '0';
+        setTimeout(() => {
+          cursor.remove();
+        }, 300);
+      }, 300);
+    });
+
+    // Random cursed seal spawn
+    setInterval(() => {
+      const seal = document.createElement('div');
+      seal.classList.add('cursed-seal');
+      seal.style.left = Math.random() * 100 + 'vw';
+      seal.style.top = Math.random() * 100 + 'vh';
+      document.body.appendChild(seal);
+      
+      setTimeout(() => {
+        seal.remove();
+      }, 4000);
+    }, 2000);
+  </script>
+</body>
+</html>
