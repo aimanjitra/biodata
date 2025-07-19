@@ -27,6 +27,20 @@
     html {
       scroll-behavior: smooth;
     }
+    /* Custom light blue cursor */
+    html {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 32 32"><path fill="%2300f0ff" d="M4.8,1.2L30.5,16L4.8,30.8L8.5,16L4.8,1.2z"/></svg>') 4 4, auto;
+    }
+
+    /* For clickable elements */
+    a, button, .view-btn, [onclick] {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 32 32"><path fill="%2300f0ff" d="M4.8,1.2L30.5,16L4.8,30.8L8.5,16L4.8,1.2z"/><circle fill="%2300f0ff" cx="16" cy="16" r="4"/></svg>') 4 4, pointer;
+    }
+
+    /* For text inputs */
+    input[type="text"], textarea {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 32 32"><path fill="%2300f0ff" d="M5,5v22h6v-6h10v6h6V5H5z M15,15H9V9h6V15z M23,15h-6V9h6V15z"/></svg>') 8 8, text;
+    }
 
     body {
       background-color: var(--darker);
@@ -306,15 +320,15 @@
     }
 
     .list {
-  padding-left: 0;  /* Remove default list padding */
-  list-style: none; /* Remove any default list markers */
-}
+      padding-left: 0;  /* Remove default list padding */
+      list-style: none; /* Remove any default list markers */
+    }
 
-.list li {
-  position: relative;
-  padding-left: 25px; /* This creates space for the > symbol and indents text */
-  margin-bottom: 10px;
-}
+    .list li {
+      position: relative;
+      padding-left: 25px; /* This creates space for the > symbol and indents text */
+      margin-bottom: 10px;
+    }
 
     .list li::before {
       content: '>';
@@ -484,6 +498,76 @@
       text-shadow: var(--glow);
     }
 
+    /* Slideshow styles */
+    .slideshow-container {
+      position: relative;
+      max-width: 100%;
+      margin: 20px 0;
+      overflow: hidden;
+      border: 1px solid rgba(0, 240, 255, 0.2);
+    }
+
+    .slideshow {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .slide img {
+      max-width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border: 1px solid rgba(0, 240, 255, 0.2);
+    }
+
+    .slideshow-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .slideshow-nav button {
+      background: var(--primary);
+      color: var(--darker);
+      border: none;
+      padding: 5px 10px;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .slideshow-nav button:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--glow);
+    }
+
+    .slide-indicators {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gray);
+      margin: 0 5px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .indicator.active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+
     @media (max-width: 900px) {
       nav {
         padding: 15px 20px;
@@ -544,6 +628,10 @@
         margin: 30px auto;
         padding: 20px;
       }
+
+      .slide img {
+        max-height: 300px;
+      }
     }
   </style>
 </head>
@@ -603,6 +691,40 @@
   </section>
 
   <section id="skills">
+    <div class="slideshow-container">
+      <div class="slideshow" id="projects-slideshow">
+        <div class="slide">
+          <img src="netflix.png" alt="Netflix Movie Dataset">
+          <p>Netflix Movie Dataset with Filter Selection</p>
+        </div>
+        <div class="slide">
+          <img src="thermistor.png" alt="Water Cooler Machine">
+          <p>Water Cooler Machine With NTC Thermistor</p>
+        </div>
+        <div class="slide">
+          <img src="bluetooth.png" alt="Bluetooth Home Automation">
+          <p>Bluetooth Controlled Home Automation System</p>
+        </div>
+        <div class="slide">
+          <img src="photo_2025-01-25_21-53-44.jpg" alt="Counter Number Bank">
+          <p>Counter Number Bank for Customer</p>
+        </div>
+        <div class="slide">
+          <img src="photo_2025-01-25_21-30-26.jpg" alt="IoT Watering System">
+          <p>IoT Driven Small Home Watering System</p>
+        </div>
+        <div class="slide">
+          <img src="photo_2023-11-28_15-29-20.jpg" alt="Mosque Security System">
+          <p>Intelligent Mosque Security System</p>
+        </div>
+      </div>
+      <div class="slideshow-nav">
+        <button onclick="prevSlide('projects-slideshow')">Previous</button>
+        <button onclick="nextSlide('projects-slideshow')">Next</button>
+      </div>
+      <div class="slide-indicators" id="projects-indicators"></div>
+    </div>
+
     <div class="section-title">Language Proficiency</div>
     <ul class="list">
       <li>English: Writing <span class="stars">★★★★☆</span> | Speaking <span class="stars">★★★★☆</span></li>
@@ -631,22 +753,53 @@
   </section>
 
   <section id="achievement">
+
+    <div class="slideshow-container">
+      <div class="slideshow" id="achievements-slideshow">
+        <div class="slide">
+          <img src="photo_2025-01-28_17-31-37.jpg" alt="A3i Campus Asia Program">
+          <p>A3i Campus Asia Short Mobility Program – Yamanashi University, Japan</p>
+        </div>
+        <div class="slide">
+          <img src="iced.png" alt="ICED 2024">
+          <p>7th International Conference on Electronic Design (ICED 2024)</p>
+        </div>
+        <div class="slide">
+          <img src="smartwatch.png" alt="Design Thinking Workshop">
+          <p>Design Thinking Workshop – Yamanashi University, Japan</p>
+        </div>
+        <div class="slide">
+          <img src="upex.png" alt="UPEx 2024">
+          <p>Second place at Undergraduate Project Exhibition (UPEx 2024)</p>
+        </div>
+        <div class="slide">
+          <img src="silver.jpg" alt="Silver Medal">
+          <p>Silver Medal – Postgraduate Research Poster Competition</p>
+        </div>
+      </div>
+      <div class="slideshow-nav">
+        <button onclick="prevSlide('achievements-slideshow')">Previous</button>
+        <button onclick="nextSlide('achievements-slideshow')">Next</button>
+      </div>
+      <div class="slide-indicators" id="achievements-indicators"></div>
+      </div>
+
     <div class="section-title">Experience</div>
     <div class="section-content"><strong>Data Analyst, CIGC UniMAP | 2023</strong><br>Analyzed post-graduation outcomes of students for reporting and insights.</div>
 
     <div class="section-title">Activity and Involvement</div>
     <ul class="list">
       <li>Participated in the A3i Campus Asia Short Mobility Program – Yamanashi University, Japan (2023) <button class="view-btn" onclick="showImage('photo_2025-01-28_17-31-37.jpg')">View</button></li>
-    <li>Participant at 7th International Conference on Electronic Design (ICED 2024) <button class="view-btn" onclick="showImage('iced.png')">View</button></li>
-    <li>Participated in the Design Thinking Workshop (Health Guardian Wristband using ESP32 and WhatsApp) – Yamanashi University, Japan (2024) program <button class="view-btn" onclick="showImage('smartwatch.png')">View</button></li>
+      <li>Participant at 7th International Conference on Electronic Design (ICED 2024) <button class="view-btn" onclick="showImage('iced.png')">View</button></li>
+      <li>Participated in the Design Thinking Workshop (Health Guardian Wristband using ESP32 and WhatsApp) – Yamanashi University, Japan (2024) program <button class="view-btn" onclick="showImage('smartwatch.png')">View</button></li>
     </ul>
     
     <div class="section-title">Awards</div>
-      <ul class="list">
+    <ul class="list">
       <li>Dean's Award (Sem 1 2020/2021, Sem 1 2021/2022, Sem 1 2022/2023, Sem 2 2023/2024)</li>
-    <li>Second place at Undergraduate Project Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex.png')">View</button></li>
-    <li>Silver Medal – Postgraduate Research Poster Competition for Mini iFuture 2025 @ UniMAP 
-      <button class="view-btn" onclick="showImage('silver.jpg')">View</button></li>
+      <li>Second place at Undergraduate Project Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex.png')">View</button></li>
+      <li>Silver Medal – Postgraduate Research Poster Competition for Mini iFuture 2025 @ UniMAP 
+        <button class="view-btn" onclick="showImage('silver.jpg')">View</button></li>
     </ul>
 
     <div class="section-title">Publication</div>
@@ -676,7 +829,7 @@
   <div class="social-links">
     <a href="https://orcid.org/0009-0009-3268-0120" target="_blank"><i class="fab fa-orcid"></i> Orcid</a>
     <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-    </div>
+  </div>
 
   <script>
     // Code Background Animation
@@ -742,7 +895,91 @@
         
         floatingContainer.appendChild(element);
       }
+
+      // Initialize slideshows
+      initSlideshow('projects-slideshow', 'projects-indicators');
+      initSlideshow('achievements-slideshow', 'achievements-indicators');
     });
+
+    // Slideshow functionality
+    function initSlideshow(slideshowId, indicatorsId) {
+      const slideshow = document.getElementById(slideshowId);
+      const slides = slideshow.querySelectorAll('.slide');
+      const indicatorsContainer = document.getElementById(indicatorsId);
+      
+      // Create indicators
+      slides.forEach((slide, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          goToSlide(slideshowId, index);
+        });
+        indicatorsContainer.appendChild(indicator);
+      });
+      
+      // Start auto-rotation
+      let currentSlide = 0;
+      const interval = setInterval(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateSlideshow(slideshowId, currentSlide);
+      }, 5000);
+      
+      // Pause on hover
+      slideshow.addEventListener('mouseenter', () => {
+        clearInterval(interval);
+      });
+      
+      slideshow.addEventListener('mouseleave', () => {
+        currentSlide = getCurrentSlideIndex(slideshowId);
+        const newInterval = setInterval(() => {
+          currentSlide = (currentSlide + 1) % slides.length;
+          updateSlideshow(slideshowId, currentSlide);
+        }, 5000);
+      });
+    }
+
+    function getCurrentSlideIndex(slideshowId) {
+      const slideshow = document.getElementById(slideshowId);
+      const transform = window.getComputedStyle(slideshow).getPropertyValue('transform');
+      const matrix = new DOMMatrix(transform);
+      return Math.round(-matrix.m41 / slideshow.offsetWidth);
+    }
+
+    function updateSlideshow(slideshowId, slideIndex) {
+      const slideshow = document.getElementById(slideshowId);
+      const indicators = document.getElementById(slideshowId.replace('slideshow', 'indicators')).querySelectorAll('.indicator');
+      
+      slideshow.style.transform = `translateX(-${slideIndex * 100}%)`;
+      
+      indicators.forEach((indicator, index) => {
+        if (index === slideIndex) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+    }
+
+    function prevSlide(slideshowId) {
+      const slideshow = document.getElementById(slideshowId);
+      const slides = slideshow.querySelectorAll('.slide');
+      let currentSlide = getCurrentSlideIndex(slideshowId);
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateSlideshow(slideshowId, currentSlide);
+    }
+
+    function nextSlide(slideshowId) {
+      const slideshow = document.getElementById(slideshowId);
+      const slides = slideshow.querySelectorAll('.slide');
+      let currentSlide = getCurrentSlideIndex(slideshowId);
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateSlideshow(slideshowId, currentSlide);
+    }
+
+    function goToSlide(slideshowId, slideIndex) {
+      updateSlideshow(slideshowId, slideIndex);
+    }
 
     // Mobile menu toggle
     const hamburger = document.querySelector('.hamburger');
