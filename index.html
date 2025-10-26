@@ -568,6 +568,27 @@
       transform: scale(1.2);
     }
 
+    .award-symbol {
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+    
+    .gold {
+      color: gold;
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+    }
+    
+    .silver {
+      color: silver;
+      text-shadow: 0 0 5px rgba(192, 192, 192, 0.7);
+    }
+    
+    .speaker {
+      color: #00f0ff;
+      text-shadow: 0 0 5px rgba(0, 240, 255, 0.7);
+    }
+
     @media (max-width: 900px) {
       nav {
         padding: 15px 20px;
@@ -757,6 +778,22 @@
     <div class="slideshow-container">
       <div class="slideshow" id="achievements-slideshow">
         <div class="slide">
+          <img src="XCipta.png" alt="XCipta">
+          <p>Gold Medal – X-Cipta 2025</p>
+        </div>
+        <div class="slide">
+          <img src="speaker.jpg" alt="Speaker">
+          <p>Speaker - Program IRC Digital Upskilling: CV Workshop</p>
+        </div>
+        <div class="slide">
+          <img src="silver.jpg" alt="Silver Medal">
+          <p>Silver Medal – Postgraduate Research Poster Competition</p>
+        </div>
+        <div class="slide">
+          <img src="smartwatch.png" alt="Design Thinking Workshop">
+          <p>Design Thinking Workshop – Yamanashi University, Japan</p>
+        </div>
+        <div class="slide">
           <img src="photo_2025-01-28_17-31-37.jpg" alt="A3i Campus Asia Program">
           <p>A3i Campus Asia Short Mobility Program – Yamanashi University, Japan</p>
         </div>
@@ -765,16 +802,8 @@
           <p>7th International Conference on Electronic Design (ICED 2024)</p>
         </div>
         <div class="slide">
-          <img src="smartwatch.png" alt="Design Thinking Workshop">
-          <p>Design Thinking Workshop – Yamanashi University, Japan</p>
-        </div>
-        <div class="slide">
           <img src="upex.png" alt="UPEx 2024">
           <p>Second place at Undergraduate Project Exhibition (UPEx 2024)</p>
-        </div>
-        <div class="slide">
-          <img src="silver.jpg" alt="Silver Medal">
-          <p>Silver Medal – Postgraduate Research Poster Competition</p>
         </div>
       </div>
       <div class="slideshow-nav">
@@ -796,10 +825,16 @@
     
     <div class="section-title">Awards</div>
     <ul class="list">
-      <li>Dean's Award (Sem 1 2020/2021, Sem 1 2021/2022, Sem 1 2022/2023, Sem 2 2023/2024)</li>
-      <li>Second place at Undergraduate Project Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex.png')">View</button></li>
-      <li>Silver Medal – Postgraduate Research Poster Competition for Mini iFuture 2025 @ UniMAP 
+      <li><span class="award-symbol">🏆</span> Dean's Award (Sem 1 2020/2021, Sem 1 2021/2022, Sem 1 2022/2023, Sem 2 2023/2024)</li>
+      <li><span class="award-symbol">🥈</span> Second place at Undergraduate Project Exhibition (UPEx 2024) <button class="view-btn" onclick="showImage('upex.png')">View</button></li>
+      <li><span class="award-symbol silver">🥈</span> Silver Medal – Postgraduate Research Poster Competition for Mini iFuture 2025 @ UniMAP 
         <button class="view-btn" onclick="showImage('silver.jpg')">View</button></li>
+      <li><span class="award-symbol gold">🥇</span> Gold Medal at XCipta 2025 for "SandCatTest: Software Testing Tool Based on Sand Cat Swarm Optimization for Uniform T-Way Test Suite Generation" <button class="view-btn" onclick="showImage('XCipta.png')">View</button></li>
+    </ul>
+
+    <div class="section-title">Speaking Engagements</div>
+    <ul class="list">
+      <li><span class="award-symbol speaker">🎤</span> Invited Speaker for "Program IRC Digital Upskilling: CV Workshop" for international students (2025) <button class="view-btn" onclick="showImage('speaker.jpg')">View</button></li>
     </ul>
 
     <div class="section-title">Publication</div>
