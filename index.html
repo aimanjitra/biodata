@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aiman | Cyber Engineer</title>
+  <title>Aiman | Cyber Security Engineer</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     :root {
       --primary: #00f0ff;
       --primary-dark: #00a8ff;
+      --primary-glow: 0 0 10px rgba(0, 240, 255, 0.7);
+      --secondary: #ff00ff;
+      --secondary-glow: 0 0 10px rgba(255, 0, 255, 0.7);
       --dark: #0a0a12;
       --darker: #050509;
       --light: #e0e0e0;
       --gray: #888;
-      --glow: 0 0 10px rgba(0, 240, 255, 0.7);
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --fast-transition: all 0.15s ease;
     }
 
     * {
@@ -26,18 +29,14 @@
 
     html {
       scroll-behavior: smooth;
-    }
-    /* Custom light blue cursor */
-    html {
       cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 32 32"><path fill="%2300f0ff" d="M4.8,1.2L30.5,16L4.8,30.8L8.5,16L4.8,1.2z"/></svg>') 4 4, auto;
     }
 
-    /* For clickable elements */
+    /* Enhanced cursor states */
     a, button, .view-btn, [onclick] {
       cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 32 32"><path fill="%2300f0ff" d="M4.8,1.2L30.5,16L4.8,30.8L8.5,16L4.8,1.2z"/><circle fill="%2300f0ff" cx="16" cy="16" r="4"/></svg>') 4 4, pointer;
     }
 
-    /* For text inputs */
     input[type="text"], textarea {
       cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 32 32"><path fill="%2300f0ff" d="M5,5v22h6v-6h10v6h6V5H5z M15,15H9V9h6V15z M23,15h-6V9h6V15z"/></svg>') 8 8, text;
     }
@@ -48,30 +47,39 @@
       font-family: 'Montserrat', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
     }
 
+    /* Enhanced selection */
     ::selection {
       background: var(--primary);
       color: var(--darker);
+      text-shadow: none;
     }
 
-    /* Terminal-like scrollbar */
+    /* Advanced scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 12px;
     }
 
     ::-webkit-scrollbar-track {
       background: var(--dark);
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 4px;
+      background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+      border-radius: 6px;
+      border: 2px solid var(--dark);
     }
 
-    /* Navigation */
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, var(--primary-dark), var(--primary));
+    }
+
+    /* Advanced Navigation */
     nav {
-      background: rgba(10, 10, 18, 0.9);
+      background: rgba(10, 10, 18, 0.95);
       color: var(--light);
       display: flex;
       justify-content: space-between;
@@ -89,7 +97,8 @@
 
     nav.scrolled {
       padding: 1rem 3rem;
-      box-shadow: var(--glow);
+      box-shadow: var(--primary-glow);
+      background: rgba(10, 10, 18, 0.98);
     }
 
     nav .logo {
@@ -97,9 +106,26 @@
       font-weight: bold;
       letter-spacing: 2px;
       color: var(--primary);
-      text-shadow: var(--glow);
+      text-shadow: var(--primary-glow);
       font-family: 'Share Tech Mono', monospace;
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav .logo::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    nav .logo:hover::after {
+      left: 0;
     }
 
     nav ul {
@@ -129,6 +155,7 @@
       height: 2px;
       background: var(--primary);
       transition: var(--transition);
+      box-shadow: var(--primary-glow);
     }
 
     nav ul li a:hover::after,
@@ -139,7 +166,7 @@
     nav ul li a:hover,
     nav ul li a.active {
       color: var(--primary);
-      text-shadow: var(--glow);
+      text-shadow: var(--primary-glow);
     }
 
     .hamburger {
@@ -154,16 +181,17 @@
       background: var(--primary);
       margin: 5px;
       transition: var(--transition);
-      box-shadow: var(--glow);
+      box-shadow: var(--primary-glow);
     }
 
-    /* Split Container */
+    /* Enhanced Split Container */
     .split-container {
       display: flex;
       height: auto;
       min-height: 100vh;
       position: relative;
       padding-top: 80px;
+      overflow: hidden;
     }
 
     .left, .right {
@@ -178,23 +206,23 @@
     }
 
     .left {
-      background: rgba(255, 255, 255, 0.1);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 240, 255, 0.05) 100%);
       color: var(--light);
       flex-direction: column;
       text-align: right;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-right: 1px solid rgba(0, 240, 255, 0.1);
     }
 
     .right {
-      background: rgba(26, 26, 26, 0.1);
+      background: linear-gradient(135deg, rgba(255, 0, 255, 0.05) 0%, rgba(26, 26, 26, 0.1) 100%);
       color: var(--light);
       flex-direction: column;
       text-align: left;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border-left: 1px solid rgba(0, 240, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-left: 1px solid rgba(255, 0, 255, 0.1);
     }
 
     .left h2, .right h2 {
@@ -203,6 +231,11 @@
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease 0.3s;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    }
+
+    .right h2 {
+      text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
     }
 
     .left p, .right p {
@@ -231,9 +264,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 240, 255, 0.2);
+      box-shadow: 
+        inset 0 0 20px rgba(0, 240, 255, 0.1),
+        0 0 30px rgba(0, 240, 255, 0.2);
     }
 
     .image-container::before {
@@ -246,9 +282,28 @@
       animation: pulse 8s infinite alternate;
     }
 
+    .image-container::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary));
+      z-index: -2;
+      filter: blur(10px);
+      opacity: 0.3;
+      animation: borderGlow 3s ease-in-out infinite alternate;
+    }
+
     @keyframes pulse {
       0% { transform: scale(1); opacity: 0.1; }
       100% { transform: scale(1.1); opacity: 0.3; }
+    }
+
+    @keyframes borderGlow {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.7; }
     }
 
     .image-container img {
@@ -262,6 +317,8 @@
       transform: scale(0.9);
       opacity: 0;
       filter: grayscale(30%) contrast(110%);
+      position: relative;
+      z-index: 1;
     }
 
     .split-container.active .image-container img {
@@ -269,7 +326,7 @@
       opacity: 1;
     }
 
-    /* Sections */
+    /* Enhanced Sections */
     section {
       display: none;
       opacity: 0;
@@ -278,12 +335,33 @@
       max-width: 900px;
       margin: 50px auto;
       padding: 30px;
-      background: rgba(10, 10, 18, 0.5);
+      background: rgba(10, 10, 18, 0.7);
       border-radius: 0;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(0, 240, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    section.active::before {
+      transform: scaleX(1);
     }
 
     section.active {
@@ -300,6 +378,7 @@
       position: relative;
       display: inline-block;
       font-family: 'Share Tech Mono', monospace;
+      text-shadow: var(--primary-glow);
     }
 
     .section-title::after {
@@ -310,7 +389,7 @@
       width: 40px;
       height: 2px;
       background: var(--primary);
-      box-shadow: var(--glow);
+      box-shadow: var(--primary-glow);
     }
 
     .section-content {
@@ -320,14 +399,19 @@
     }
 
     .list {
-      padding-left: 0;  /* Remove default list padding */
-      list-style: none; /* Remove any default list markers */
+      padding-left: 0;
+      list-style: none;
     }
 
     .list li {
       position: relative;
-      padding-left: 25px; /* This creates space for the > symbol and indents text */
+      padding-left: 25px;
       margin-bottom: 10px;
+      transition: var(--fast-transition);
+    }
+
+    .list li:hover {
+      transform: translateX(5px);
     }
 
     .list li::before {
@@ -336,12 +420,14 @@
       left: 5px;
       color: var(--primary);
       font-family: 'Share Tech Mono', monospace;
+      text-shadow: var(--primary-glow);
     }
 
     .stars {
       color: #f39c12;
     }
 
+    /* Enhanced Project Images */
     .project-img {
       width: 100%;
       max-width: 400px;
@@ -350,12 +436,32 @@
       box-shadow: none;
       transition: var(--transition);
       border: 1px solid rgba(0, 240, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-img::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+      opacity: 0;
+      transition: var(--transition);
     }
 
     .project-img:hover {
       transform: translateY(-5px);
-      box-shadow: var(--glow);
+      box-shadow: 
+        var(--primary-glow),
+        0 10px 20px rgba(0, 0, 0, 0.3);
       border-color: var(--primary);
+    }
+
+    .project-img:hover::after {
+      opacity: 1;
     }
 
     .publication-link {
@@ -376,6 +482,7 @@
       height: 1px;
       background: var(--primary);
       transition: var(--transition);
+      box-shadow: var(--primary-glow);
     }
 
     .publication-link:hover::after {
@@ -395,14 +502,31 @@
       transition: var(--transition);
       display: inline-block;
       font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
     }
 
     .social-links a:hover {
       transform: translateY(-3px);
-      text-shadow: var(--glow);
+      text-shadow: var(--primary-glow);
     }
 
-    /* Code Background */
+    .social-links a:hover::after {
+      left: 0;
+    }
+
+    /* Advanced Code Background */
     .code-background {
       position: fixed;
       top: 0;
@@ -414,7 +538,7 @@
       pointer-events: none;
     }
 
-    /* Floating elements */
+    /* Enhanced Floating elements */
     .floating-elements {
       position: absolute;
       top: 0;
@@ -430,6 +554,12 @@
       background: rgba(0, 240, 255, 0.1);
       border-radius: 50%;
       animation: float 15s infinite linear;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    .floating-element:nth-child(2n) {
+      background: rgba(255, 0, 255, 0.1);
+      box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
     }
 
     @keyframes float {
@@ -441,7 +571,7 @@
       }
     }
 
-    /* View button styles */
+    /* Enhanced View button styles */
     .view-btn {
       background: var(--primary);
       color: var(--darker);
@@ -452,14 +582,34 @@
       cursor: pointer;
       transition: var(--transition);
       font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .view-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .view-btn:hover::before {
+      left: 100%;
     }
     
     .view-btn:hover {
       background: var(--primary-dark);
-      box-shadow: var(--glow);
+      box-shadow: var(--primary-glow);
+      transform: translateY(-2px);
     }
     
-    /* Modal styles */
+    /* Enhanced Modal styles */
     .modal {
       display: none;
       position: fixed;
@@ -468,8 +618,10 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.95);
       overflow: auto;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
     
     .modal-content {
@@ -491,20 +643,24 @@
       cursor: pointer;
       transition: var(--transition);
       z-index: 2001;
+      text-shadow: var(--primary-glow);
     }
     
     .close-btn:hover {
       color: var(--primary-dark);
-      text-shadow: var(--glow);
+      transform: rotate(90deg);
     }
 
-    /* Slideshow styles */
+    /* Advanced Slideshow styles */
     .slideshow-container {
       position: relative;
       max-width: 100%;
       margin: 20px 0;
       overflow: hidden;
       border: 1px solid rgba(0, 240, 255, 0.2);
+      box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .slideshow {
@@ -516,6 +672,19 @@
       min-width: 100%;
       box-sizing: border-box;
       text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%);
+      z-index: -1;
     }
 
     .slide img {
@@ -523,6 +692,15 @@
       max-height: 400px;
       object-fit: contain;
       border: 1px solid rgba(0, 240, 255, 0.2);
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .slide img:hover {
+      transform: scale(1.02);
+      box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.3),
+        var(--primary-glow);
     }
 
     .slideshow-nav {
@@ -540,11 +718,29 @@
       cursor: pointer;
       transition: var(--transition);
       font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .slideshow-nav button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: var(--transition);
+    }
+    
+    .slideshow-nav button:hover::before {
+      left: 100%;
     }
 
     .slideshow-nav button:hover {
       background: var(--primary-dark);
-      box-shadow: var(--glow);
+      box-shadow: var(--primary-glow);
+      transform: translateY(-2px);
     }
 
     .slide-indicators {
@@ -561,11 +757,30 @@
       margin: 0 5px;
       cursor: pointer;
       transition: var(--transition);
+      position: relative;
+    }
+
+    .indicator::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 50%;
+      border: 1px solid var(--primary);
+      opacity: 0;
+      transition: var(--transition);
     }
 
     .indicator.active {
       background: var(--primary);
       transform: scale(1.2);
+      box-shadow: var(--primary-glow);
+    }
+
+    .indicator.active::after {
+      opacity: 1;
     }
 
     .award-symbol {
@@ -589,6 +804,237 @@
       text-shadow: 0 0 5px rgba(0, 240, 255, 0.7);
     }
 
+    /* Terminal Effect */
+    .terminal {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 15px;
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--primary);
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .terminal::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(transparent 50%, rgba(0, 240, 255, 0.03) 50%);
+      background-size: 100% 4px;
+      z-index: 0;
+    }
+
+    .terminal-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .terminal-prompt {
+      color: var(--secondary);
+    }
+
+    /* Particle Background */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
+    /* Glitch Effect */
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--secondary);
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim 5s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 var(--primary);
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim2 5s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim {
+      0% {
+        clip: rect(42px, 9999px, 44px, 0);
+      }
+      5% {
+        clip: rect(12px, 9999px, 59px, 0);
+      }
+      10% {
+        clip: rect(48px, 9999px, 29px, 0);
+      }
+      15% {
+        clip: rect(42px, 9999px, 73px, 0);
+      }
+      20% {
+        clip: rect(63px, 9999px, 27px, 0);
+      }
+      25% {
+        clip: rect(34px, 9999px, 55px, 0);
+      }
+      30% {
+        clip: rect(86px, 9999px, 73px, 0);
+      }
+      35% {
+        clip: rect(20px, 9999px, 20px, 0);
+      }
+      40% {
+        clip: rect(26px, 9999px, 60px, 0);
+      }
+      45% {
+        clip: rect(25px, 9999px, 66px, 0);
+      }
+      50% {
+        clip: rect(57px, 9999px, 98px, 0);
+      }
+      55% {
+        clip: rect(5px, 9999px, 46px, 0);
+      }
+      60% {
+        clip: rect(82px, 9999px, 31px, 0);
+      }
+      65% {
+        clip: rect(54px, 9999px, 27px, 0);
+      }
+      70% {
+        clip: rect(28px, 9999px, 99px, 0);
+      }
+      75% {
+        clip: rect(45px, 9999px, 69px, 0);
+      }
+      80% {
+        clip: rect(23px, 9999px, 85px, 0);
+      }
+      85% {
+        clip: rect(54px, 9999px, 84px, 0);
+      }
+      90% {
+        clip: rect(45px, 9999px, 47px, 0);
+      }
+      95% {
+        clip: rect(37px, 9999px, 20px, 0);
+      }
+      100% {
+        clip: rect(4px, 9999px, 91px, 0);
+      }
+    }
+
+    @keyframes glitch-anim2 {
+      0% {
+        clip: rect(65px, 9999px, 100px, 0);
+      }
+      5% {
+        clip: rect(52px, 9999px, 74px, 0);
+      }
+      10% {
+        clip: rect(79px, 9999px, 85px, 0);
+      }
+      15% {
+        clip: rect(75px, 9999px, 5px, 0);
+      }
+      20% {
+        clip: rect(67px, 9999px, 61px, 0);
+      }
+      25% {
+        clip: rect(14px, 9999px, 79px, 0);
+      }
+      30% {
+        clip: rect(1px, 9999px, 66px, 0);
+      }
+      35% {
+        clip: rect(86px, 9999px, 30px, 0);
+      }
+      40% {
+        clip: rect(23px, 9999px, 98px, 0);
+      }
+      45% {
+        clip: rect(85px, 9999px, 72px, 0);
+      }
+      50% {
+        clip: rect(71px, 9999px, 75px, 0);
+      }
+      55% {
+        clip: rect(2px, 9999px, 48px, 0);
+      }
+      60% {
+        clip: rect(30px, 9999px, 16px, 0);
+      }
+      65% {
+        clip: rect(59px, 9999px, 50px, 0);
+      }
+      70% {
+        clip: rect(41px, 9999px, 62px, 0);
+      }
+      75% {
+        clip: rect(2px, 9999px, 82px, 0);
+      }
+      80% {
+        clip: rect(47px, 9999px, 73px, 0);
+      }
+      85% {
+        clip: rect(3px, 9999px, 27px, 0);
+      }
+      90% {
+        clip: rect(26px, 9999px, 55px, 0);
+      }
+      95% {
+        clip: rect(42px, 9999px, 97px, 0);
+      }
+      100% {
+        clip: rect(38px, 9999px, 49px, 0);
+      }
+    }
+
+    /* Binary Rain Effect */
+    .binary-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.1;
+    }
+
+    .binary-digit {
+      position: absolute;
+      color: var(--primary);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
     @media (max-width: 900px) {
       nav {
         padding: 15px 20px;
@@ -600,12 +1046,14 @@
         left: -100%;
         width: 100%;
         height: calc(100vh - 70px);
-        background: rgba(17, 17, 17, 0.95);
+        background: rgba(17, 17, 17, 0.98);
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 30px;
         transition: var(--transition);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
       }
 
       nav ul.active {
@@ -659,6 +1107,12 @@
 <body>
   <!-- Code Background Canvas -->
   <canvas id="codeCanvas" class="code-background"></canvas>
+  
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+  
+  <!-- Binary Rain Effect -->
+  <div class="binary-rain" id="binaryRain"></div>
 
   <nav id="navbar">
     <div class="logo">AIMAN</div>
@@ -678,7 +1132,7 @@
 
   <div class="split-container">
     <div class="left">
-      <h2>Designer</h2>
+      <h2 class="glitch" data-text="Designer">Designer</h2>
       <p>As a creative thinker, I love bringing digital experiences to life through visuals and interfaces that feel intuitive, aesthetic, and functional.</p>
     </div>
 
@@ -688,7 +1142,7 @@
     </div>
 
     <div class="right">
-      <h2>&lt;Coder&gt;</h2>
+      <h2 class="glitch" data-text="<Coder>">&lt;Coder&gt;</h2>
       <p>I specialize in Computer Engineering and Web Development. Building functional systems, intelligent algorithms, and interactive experiences using modern tech stacks.</p>
     </div>
   </div>
@@ -698,9 +1152,14 @@
     <div class="section-content">
       Passionate and driven master's student in Computer Engineering with a strong foundation in coding and IT. Currently honing my technical and research skills, I aspire to pursue advanced studies at a prestigious international institution. My objective is to engage in a dynamic academic environment, deepen my expertise, and contribute meaningfully to pioneering research in computer engineering and emerging technologies.
     </div>
-    <div class="section-title">Professional Body Membership</div>
-    <div class="section-content">
-      Graduate Engineer of Board Engineer Malaysia (BEM)<br>Reg. No.: G1259665A<br>Branch: Computer
+    
+    <div class="terminal">
+      <div class="terminal-content">
+        <span class="terminal-prompt">Location :</span> Kedah, Malaysia<br>
+        <span class="terminal-prompt">Status Professional :</span> Graduate Engineer of Board Engineer Malaysia (BEM)<br>
+        <span class="terminal-prompt">Register Number :</span> G1259665A<br>
+        <span class="terminal-prompt">Branch :</span> Computer
+      </div>
     </div>
   </section>
 
@@ -774,7 +1233,6 @@
   </section>
 
   <section id="achievement">
-
     <div class="slideshow-container">
       <div class="slideshow" id="achievements-slideshow">
         <div class="slide">
@@ -811,7 +1269,7 @@
         <button onclick="nextSlide('achievements-slideshow')">Next</button>
       </div>
       <div class="slide-indicators" id="achievements-indicators"></div>
-      </div>
+    </div>
 
     <div class="section-title">Experience</div>
     <div class="section-content"><strong>Data Analyst, CIGC UniMAP | 2023</strong><br>Analyzed post-graduation outcomes of students for reporting and insights.</div>
@@ -848,7 +1306,8 @@
     <div class="section-content">Email: aimanjitra01@gmail.com<br>Phone: +60 14-9113900<br>Location: Kedah, Malaysia</div>
     <div class="section-title">Reference</div>
     <div class="section-content">
-      Ts. Dr. Mohd Zamri Bin Zahir Ahmad<br>UniMAP<br>Email: zamrizahir@unimap.edu.my
+      Ts. Dr. Mohd Zamri Bin Zahir Ahmad<br>Faculty of Intelligent Computing (FICOM)<br>Universiti Malaysia Perlis (UniMAP)<br>Email: zamrizahir@unimap.edu.my<br>
+      <a href="https://zamrizahir88.github.io/cv/main.html" class="publication-link" target="_blank">Visit Academic Profile Website</a>
     </div>
   </section>
 
@@ -866,6 +1325,7 @@
     <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
     // Code Background Animation
     const canvas = document.getElementById('codeCanvas');
@@ -902,6 +1362,60 @@
     }
     
     setInterval(draw, 50);
+
+    // Particles.js configuration
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#00f0ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#00f0ff",
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        }
+      },
+      retina_detect: true
+    });
+
+    // Binary Rain Effect
+    function createBinaryRain() {
+      const binaryRain = document.getElementById('binaryRain');
+      const digits = '01';
+      
+      for (let i = 0; i < 50; i++) {
+        const digit = document.createElement('div');
+        digit.classList.add('binary-digit');
+        digit.textContent = digits.charAt(Math.floor(Math.random() * digits.length));
+        digit.style.left = Math.random() * 100 + 'vw';
+        digit.style.animationDuration = (Math.random() * 10 + 5) + 's';
+        digit.style.animationDelay = (Math.random() * 5) + 's';
+        binaryRain.appendChild(digit);
+      }
+    }
+    
+    createBinaryRain();
 
     // Activate split container animations when page loads
     document.addEventListener('DOMContentLoaded', function() {
@@ -1082,7 +1596,7 @@
       pdfViewer.style.display = 'block';
       pdfViewer.src = pdfUrl;
       modal.style.display = 'block';
-      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+      document.body.style.overflow = 'hidden';
     }
     
     function showImage(imgUrl) {
@@ -1094,7 +1608,7 @@
       modalImage.style.display = 'block';
       modalImage.src = imgUrl;
       modal.style.display = 'block';
-      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+      document.body.style.overflow = 'hidden';
     }
     
     function closeModal() {
@@ -1105,7 +1619,7 @@
       modal.style.display = 'none';
       pdfViewer.src = '';
       modalImage.src = '';
-      document.body.style.overflow = 'auto'; // Re-enable scrolling
+      document.body.style.overflow = 'auto';
     }
     
     // Close modal when clicking outside content
