@@ -44,7 +44,8 @@
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
-      padding-top: 70px; /* Added padding for fixed nav on mobile */
+      padding-top: 70px;
+      font-size: 16px; /* Base font size for better readability */
     }
 
     ::selection {
@@ -338,7 +339,7 @@
       margin: 80px auto;
       padding: 60px 40px;
       position: relative;
-      min-height: 80vh; /* Ensure sections are tall enough */
+      min-height: 80vh;
     }
 
     section.active {
@@ -598,6 +599,7 @@
     .stars {
       color: #f39c12;
       margin-left: 10px;
+      font-size: 1.1rem;
     }
 
     /* Project Images */
@@ -632,6 +634,10 @@
       overflow: hidden;
       z-index: 1;
       border-radius: 3px;
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .view-btn::before {
@@ -826,24 +832,25 @@
       }
     }
 
-    /* MOBILE RESPONSIVE IMPROVEMENTS */
+    /* MOBILE RESPONSIVE IMPROVEMENTS - FIXED FOR BETTER READABILITY */
     @media (max-width: 900px) {
       body {
-        padding-top: 60px; /* Reduced padding for mobile */
+        padding-top: 60px;
+        font-size: 15px;
       }
       
       nav {
-        padding: 15px 20px;
-        height: 60px; /* Fixed height for mobile */
+        padding: 12px 15px;
+        height: 60px;
       }
 
       nav.scrolled {
-        padding: 10px 20px;
+        padding: 10px 15px;
       }
 
       nav .logo {
-        font-size: 1.4rem;
-        letter-spacing: 2px;
+        font-size: 1.3rem;
+        letter-spacing: 1px;
       }
 
       nav ul {
@@ -856,11 +863,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        gap: 25px;
+        gap: 15px;
         transition: var(--transition);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        padding-top: 40px;
+        padding-top: 30px;
         overflow-y: auto;
       }
 
@@ -875,8 +882,9 @@
 
       nav ul li a {
         display: block;
-        padding: 15px 0;
-        font-size: 1.1rem;
+        padding: 12px 0;
+        font-size: 1rem;
+        font-weight: 500;
         width: 100%;
       }
 
@@ -896,122 +904,57 @@
         transform: rotate(45deg) translate(-5px, -6px);
       }
 
+      /* Hero Section Mobile Improvements */
       .hero-title {
-        font-size: 2.2rem;
-        margin-top: 20px;
-      }
-
-      .hero-subtitle {
-        font-size: 1.3rem;
-      }
-
-      .hero-image-container {
-        width: 220px;
-        height: 220px;
-        margin: 30px auto;
-      }
-
-      .section-title {
-        font-size: 1.8rem;
-      }
-
-      section {
-        padding: 30px 20px;
-        margin: 40px auto;
-        min-height: auto; /* Allow natural height on mobile */
-        scroll-margin-top: 70px; /* Ensures section is not hidden under fixed nav */
-      }
-
-      .slide {
-        padding: 20px;
-      }
-
-      .slide img {
-        max-height: 250px;
-      }
-
-      .section-content {
-        padding: 20px;
-        margin-bottom: 20px;
-      }
-
-      .terminal {
-        padding: 15px;
-        font-size: 0.9rem;
-      }
-
-      .list li {
-        padding-left: 25px;
-        margin-bottom: 12px;
-        font-size: 0.9rem;
-      }
-
-      .view-btn {
-        margin-top: 8px;
-        margin-left: 0;
-        display: inline-block;
-      }
-
-      .social-links {
-        margin: 30px 0;
-      }
-
-      .social-links a {
-        margin: 10px;
-        padding: 8px 16px;
-        font-size: 0.9rem;
-      }
-
-      /* Mobile-specific improvements */
-      .typing-text {
-        font-size: 1rem;
-        min-height: 30px;
-      }
-
-      .cursor {
-        height: 1rem;
-      }
-
-      .slideshow-nav button {
-        padding: 8px 20px;
-        font-size: 0.9rem;
-      }
-
-      .publication-link {
-        padding: 4px 8px;
-        font-size: 0.9rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
+        margin-top: 10px;
+        line-height: 1.2;
       }
 
       .hero-subtitle {
         font-size: 1.1rem;
-      }
-
-      .typing-text {
-        font-size: 0.9rem;
+        margin: 10px 0;
+        line-height: 1.3;
       }
 
       .hero-image-container {
         width: 180px;
         height: 180px;
+        margin: 20px auto;
+      }
+
+      /* Section Improvements - Less Gap */
+      section {
+        padding: 20px 15px !important;
+        margin: 20px auto !important;
+        min-height: auto;
+        scroll-margin-top: 65px;
+      }
+
+      .section-header {
+        margin-bottom: 20px;
       }
 
       .section-title {
         font-size: 1.6rem;
-      }
-
-      section {
-        padding: 25px 15px;
-        margin: 30px auto;
+        margin-bottom: 10px;
       }
 
       .section-content {
         padding: 15px;
+        margin-bottom: 15px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .section-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      /* Slideshow Mobile Improvements */
+      .slideshow-container {
+        margin: 15px 0;
       }
 
       .slide {
@@ -1019,23 +962,136 @@
       }
 
       .slide img {
-        max-height: 200px;
+        max-height: 180px;
+        margin: 8px 0;
       }
 
-      .modal-content {
-        padding: 20px;
+      .slide p {
+        font-size: 0.85rem;
+        line-height: 1.3;
+        margin-top: 8px;
       }
 
-      .close-btn {
-        top: 10px;
-        right: 20px;
-        font-size: 28px;
+      /* Terminal Mobile Improvements */
+      .terminal {
+        padding: 12px;
+        font-size: 0.85rem;
+        margin: 15px 0;
+      }
+
+      /* List Improvements - Better Spacing */
+      .list {
+        margin: 10px 0;
+      }
+
+      .list li {
+        padding-left: 20px;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      /* View Button Improvements */
+      .view-btn {
+        margin-top: 5px;
+        margin-left: 0;
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        min-height: 28px;
+      }
+
+      /* Social Links */
+      .social-links {
+        margin: 25px 0;
+      }
+
+      .social-links a {
+        margin: 6px;
+        padding: 8px 14px;
+        font-size: 0.85rem;
+      }
+
+      /* Mobile-specific improvements */
+      .typing-text {
+        font-size: 0.9rem;
+        min-height: 25px;
+        margin: 10px 0;
+      }
+
+      .cursor {
+        height: 0.9rem;
+      }
+
+      .slideshow-nav button {
+        padding: 6px 15px;
+        font-size: 0.85rem;
+        margin: 3px;
+      }
+
+      .publication-link {
+        padding: 4px 8px;
+        font-size: 0.85rem;
+        margin-top: 6px;
+      }
+
+      /* Stars for language proficiency */
+      .stars {
+        font-size: 1rem;
+        margin-left: 5px;
+      }
+
+      /* Award symbols */
+      .award-symbol {
+        font-size: 1rem;
+        margin-right: 5px;
+      }
+
+      /* Reduce gap between project items */
+      #skills .list li + li {
+        margin-top: 3px;
+      }
+      
+      /* Ensure text is readable on mobile */
+      p, li, .section-content {
+        text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Improve touch targets */
+      button, .view-btn, .publication-link, .social-links a {
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Better spacing for project descriptions */
+      #skills .list li:has(button) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+
+      /* Reduce excessive whitespace in slideshows */
+      .slideshow-container {
+        border-radius: 6px;
+      }
+
+      .slide-indicators {
+        margin-top: 10px;
+      }
+
+      .indicator {
+        width: 8px;
+        height: 8px;
       }
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 600px) {
       .hero-title {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
       }
 
       .hero-subtitle {
@@ -1055,9 +1111,136 @@
         font-size: 1.4rem;
       }
 
+      section {
+        padding: 18px 12px !important;
+        margin: 18px auto !important;
+      }
+
+      .section-content {
+        padding: 12px;
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+      }
+
+      .section-content h3 {
+        font-size: 1.1rem;
+      }
+
+      .slide {
+        padding: 12px;
+      }
+
+      .slide img {
+        max-height: 150px;
+      }
+
+      .modal-content {
+        padding: 15px;
+      }
+
+      .close-btn {
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+      }
+
+      /* Even tighter spacing for very small screens */
+      .list li {
+        margin-bottom: 6px;
+        font-size: 0.85rem;
+        line-height: 1.3;
+      }
+
+      .terminal {
+        padding: 10px;
+        font-size: 0.8rem;
+      }
+
+      .social-links a {
+        margin: 4px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hero-title {
+        font-size: 1.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.9rem;
+      }
+
+      .typing-text {
+        font-size: 0.8rem;
+        min-height: 22px;
+      }
+
+      .hero-image-container {
+        width: 130px;
+        height: 130px;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+      }
+
+      section {
+        padding: 15px 10px !important;
+        margin: 15px auto !important;
+      }
+
       .view-btn {
-        padding: 4px 12px;
+        padding: 4px 8px;
         font-size: 0.75rem;
+        min-height: 26px;
+      }
+
+      .slide img {
+        max-height: 130px;
+      }
+
+      /* Ultra-compact mode for very small screens */
+      .section-content {
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 0.85rem;
+      }
+
+      .list li {
+        margin-bottom: 5px;
+        padding-left: 18px;
+        font-size: 0.82rem;
+      }
+
+      nav ul li a {
+        padding: 10px 0;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Additional mobile optimization for text readability */
+    @media (max-width: 900px) {
+      /* Improve paragraph readability */
+      p {
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+      
+      /* Better heading hierarchy on mobile */
+      h1, h2, h3 {
+        line-height: 1.2;
+      }
+      
+      /* Compact project list */
+      #skills .list li {
+        margin-bottom: 8px;
+      }
+      
+      /* Reduce line height in terminal */
+      .terminal {
+        line-height: 1.4;
       }
     }
   </style>
@@ -1342,8 +1525,8 @@
       const sections = document.querySelectorAll('section');
       sections.forEach(section => {
         if (section.id !== 'hero') {
-          section.style.display = 'block'; // Make all sections visible
-          section.classList.remove('active'); // Initially hide them with opacity
+          section.style.display = 'block';
+          section.classList.remove('active');
         }
       });
       
@@ -1406,11 +1589,14 @@
         
         // Scroll to section with proper offset for mobile
         const navHeight = document.getElementById('navbar').offsetHeight;
-        const sectionTop = targetSection.offsetTop - navHeight - 20;
+        const sectionTop = targetSection.offsetTop - navHeight - 15;
         
-        window.scrollTo({
-          top: sectionTop,
-          behavior: 'smooth'
+        // Use requestAnimationFrame for smoother scrolling on mobile
+        requestAnimationFrame(() => {
+          window.scrollTo({
+            top: sectionTop,
+            behavior: 'smooth'
+          });
         });
         
         // Update active nav link
