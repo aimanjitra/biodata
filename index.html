@@ -44,6 +44,7 @@
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
+      padding-top: 70px; /* Added padding for fixed nav on mobile */
     }
 
     ::selection {
@@ -158,6 +159,7 @@
       transition: var(--transition);
       position: relative;
       padding: 0.5rem 0;
+      cursor: pointer;
     }
 
     nav ul li a::after {
@@ -205,7 +207,6 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      padding-top: 80px;
       overflow: hidden;
     }
 
@@ -330,7 +331,6 @@
 
     /* Enhanced Sections */
     section {
-      display: none;
       opacity: 0;
       transition: opacity 0.8s ease-in-out, transform 0.5s ease;
       transform: translateY(30px);
@@ -338,12 +338,13 @@
       margin: 80px auto;
       padding: 60px 40px;
       position: relative;
+      min-height: 80vh; /* Ensure sections are tall enough */
     }
 
     section.active {
-      display: block;
       opacity: 1;
       transform: translateY(0);
+      display: block;
     }
 
     .section-header {
@@ -825,30 +826,58 @@
       }
     }
 
-    /* Responsive Design */
+    /* MOBILE RESPONSIVE IMPROVEMENTS */
     @media (max-width: 900px) {
+      body {
+        padding-top: 60px; /* Reduced padding for mobile */
+      }
+      
       nav {
         padding: 15px 20px;
+        height: 60px; /* Fixed height for mobile */
+      }
+
+      nav.scrolled {
+        padding: 10px 20px;
+      }
+
+      nav .logo {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
       }
 
       nav ul {
         position: fixed;
-        top: 70px;
+        top: 60px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 70px);
-        background: rgba(17, 17, 17, 0.98);
+        height: calc(100vh - 60px);
+        background: rgba(10, 10, 18, 0.98);
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 30px;
+        justify-content: flex-start;
+        gap: 25px;
         transition: var(--transition);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
+        padding-top: 40px;
+        overflow-y: auto;
       }
 
       nav ul.active {
         left: 0;
+      }
+
+      nav ul li {
+        width: 100%;
+        text-align: center;
+      }
+
+      nav ul li a {
+        display: block;
+        padding: 15px 0;
+        font-size: 1.1rem;
+        width: 100%;
       }
 
       .hamburger {
@@ -868,11 +897,18 @@
       }
 
       .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        margin-top: 20px;
       }
 
       .hero-subtitle {
         font-size: 1.3rem;
+      }
+
+      .hero-image-container {
+        width: 220px;
+        height: 220px;
+        margin: 30px auto;
       }
 
       .section-title {
@@ -880,13 +916,10 @@
       }
 
       section {
-        padding: 40px 20px;
+        padding: 30px 20px;
         margin: 40px auto;
-      }
-
-      .hero-image-container {
-        width: 250px;
-        height: 250px;
+        min-height: auto; /* Allow natural height on mobile */
+        scroll-margin-top: 70px; /* Ensures section is not hidden under fixed nav */
       }
 
       .slide {
@@ -894,13 +927,65 @@
       }
 
       .slide img {
-        max-height: 300px;
+        max-height: 250px;
+      }
+
+      .section-content {
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .terminal {
+        padding: 15px;
+        font-size: 0.9rem;
+      }
+
+      .list li {
+        padding-left: 25px;
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+      }
+
+      .view-btn {
+        margin-top: 8px;
+        margin-left: 0;
+        display: inline-block;
+      }
+
+      .social-links {
+        margin: 30px 0;
+      }
+
+      .social-links a {
+        margin: 10px;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+
+      /* Mobile-specific improvements */
+      .typing-text {
+        font-size: 1rem;
+        min-height: 30px;
+      }
+
+      .cursor {
+        height: 1rem;
+      }
+
+      .slideshow-nav button {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+      }
+
+      .publication-link {
+        padding: 4px 8px;
+        font-size: 0.9rem;
       }
     }
 
     @media (max-width: 600px) {
       .hero-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
       }
 
       .hero-subtitle {
@@ -908,7 +993,71 @@
       }
 
       .typing-text {
+        font-size: 0.9rem;
+      }
+
+      .hero-image-container {
+        width: 180px;
+        height: 180px;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+
+      section {
+        padding: 25px 15px;
+        margin: 30px auto;
+      }
+
+      .section-content {
+        padding: 15px;
+      }
+
+      .slide {
+        padding: 15px;
+      }
+
+      .slide img {
+        max-height: 200px;
+      }
+
+      .modal-content {
+        padding: 20px;
+      }
+
+      .close-btn {
+        top: 10px;
+        right: 20px;
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hero-title {
+        font-size: 1.5rem;
+      }
+
+      .hero-subtitle {
         font-size: 1rem;
+      }
+
+      .typing-text {
+        font-size: 0.85rem;
+      }
+
+      .hero-image-container {
+        width: 150px;
+        height: 150px;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      .view-btn {
+        padding: 4px 12px;
+        font-size: 0.75rem;
       }
     }
   </style>
@@ -929,11 +1078,11 @@
   <nav id="navbar">
     <div class="logo">AIMAN</div>
     <ul class="nav-links">
-      <li><a onclick="showSection('about')">About</a></li>
-      <li><a onclick="showSection('background')">Background</a></li>
-      <li><a onclick="showSection('skills')">Skills</a></li>
-      <li><a onclick="showSection('achievement')">Achievements</a></li>
-      <li><a onclick="showSection('contact')">Contact</a></li>
+      <li><a class="nav-link" data-section="about">About</a></li>
+      <li><a class="nav-link" data-section="background">Background</a></li>
+      <li><a class="nav-link" data-section="skills">Skills</a></li>
+      <li><a class="nav-link" data-section="achievement">Achievements</a></li>
+      <li><a class="nav-link" data-section="contact">Contact</a></li>
     </ul>
     <div class="hamburger">
       <div></div>
@@ -1187,6 +1336,93 @@
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
+    // Fix for mobile navigation - all sections are visible but controlled with classes
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize all sections (all visible on mobile, just controlling active state)
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        if (section.id !== 'hero') {
+          section.style.display = 'block'; // Make all sections visible
+          section.classList.remove('active'); // Initially hide them with opacity
+        }
+      });
+      
+      // Show hero section by default
+      document.getElementById('hero').classList.add('active');
+      
+      // Set up navigation
+      setupNavigation();
+      
+      // Initialize slideshows
+      initSlideshow('projects-slideshow', 'projects-indicators');
+      initSlideshow('achievements-slideshow', 'achievements-indicators');
+    });
+    
+    function setupNavigation() {
+      const navLinks = document.querySelectorAll('.nav-link');
+      const hamburger = document.querySelector('.hamburger');
+      const mobileNav = document.querySelector('.nav-links');
+      
+      // Add click event to each nav link
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetSection = this.getAttribute('data-section');
+          showSection(targetSection);
+          
+          // Close mobile menu if open
+          hamburger.classList.remove('active');
+          mobileNav.classList.remove('active');
+        });
+      });
+      
+      // Hamburger menu toggle
+      hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+          hamburger.classList.remove('active');
+          mobileNav.classList.remove('active');
+        }
+      });
+    }
+    
+    function showSection(sectionId) {
+      // Hide all sections (except hero which is always visible)
+      document.querySelectorAll('section').forEach(section => {
+        if (section.id !== 'hero') {
+          section.classList.remove('active');
+        }
+      });
+      
+      // Show the target section
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+        
+        // Scroll to section with proper offset for mobile
+        const navHeight = document.getElementById('navbar').offsetHeight;
+        const sectionTop = targetSection.offsetTop - navHeight - 20;
+        
+        window.scrollTo({
+          top: sectionTop,
+          behavior: 'smooth'
+        });
+        
+        // Update active nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('data-section') === sectionId) {
+            link.classList.add('active');
+          }
+        });
+      }
+    }
+
     // Scroll Progress Bar
     window.addEventListener('scroll', () => {
       const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -1324,23 +1560,6 @@
 
     setTimeout(type, 1000);
 
-    // Mobile menu toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
-    });
-
     // Navbar scroll effect
     window.addEventListener('scroll', () => {
       const navbar = document.getElementById('navbar');
@@ -1349,35 +1568,6 @@
       } else {
         navbar.classList.remove('scrolled');
       }
-    });
-
-    // Show section function
-    function showSection(id) {
-      document.querySelectorAll('section').forEach(section => {
-        section.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-      
-      // Update active nav link
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.remove('active');
-      });
-      event.target.classList.add('active');
-    }
-
-    // Intersection Observer for section animations
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(section => {
-      observer.observe(section);
     });
 
     // Slideshow functionality
@@ -1459,12 +1649,6 @@
     function goToSlide(slideshowId, slideIndex) {
       updateSlideshow(slideshowId, slideIndex);
     }
-
-    // Initialize slideshows when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-      initSlideshow('projects-slideshow', 'projects-indicators');
-      initSlideshow('achievements-slideshow', 'achievements-indicators');
-    });
 
     // Window resize handler
     window.addEventListener('resize', () => {
