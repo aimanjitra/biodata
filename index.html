@@ -54,6 +54,13 @@
       text-shadow: none;
     }
 
+    #hero {
+  display: block !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+
     /* Scroll Progress Bar */
     .scroll-progress {
       position: fixed;
@@ -1259,7 +1266,7 @@
   <div class="binary-rain" id="binaryRain"></div>
 
   <nav id="navbar">
-    <div class="logo">AIMAN</div>
+    <div class="logo" onclick="showSection('hero')">AIMAN</div>
     <ul class="nav-links">
       <li><a class="nav-link" data-section="about">About</a></li>
       <li><a class="nav-link" data-section="background">Background</a></li>
@@ -1275,7 +1282,7 @@
   </nav>
 
   <!-- Hero Section -->
-  <section id="hero" class="hero-section active">
+  <section id="hero" class="hero-section">
     <div class="hero-content">
       <h1 class="hero-title">MUHAMMAD AIMAN</h1>
       <p class="hero-subtitle">Cyber Security Engineer & Developer</p>
@@ -1479,6 +1486,15 @@
     <div class="section-content">
       <h3>Publication</h3>
       <a href="https://link.springer.com/chapter/10.1007/978-3-031-78918-2_25" class="publication-link" target="_blank">Student Academic Guidance System</a>
+      <a href="https://catalog.lib.kyushu-u.ac.jp/opac_detail_md/?lang=0&amode=MD100000&bibid=7395602" class="publication-link" target="_blank">Variable Strength Sand Cat Swarm Optimization (VSCSO) for T-Way Combinatorial Test Suite Generation</a>
+      <a href="https://catalog.lib.kyushu-u.ac.jp/opac_detail_md/?lang=0&amode=MD100000&bibid=7395604" class="publication-link" target="_blank">Application of Sewing Training-Based Optimization in Generating Effective Input-Output Relation-Based for the T-Way Test Suite Generation Strategies</a>
+    </div>
+
+    <div class="section-content">
+      <h3>Publication (Full Content)</h3>
+      <a href="https://www.researchgate.net/publication/390828616_Student_Academic_Guidance_System_Using_Rule_Based_Expert_System" class="publication-link" target="_blank">Student Academic Guidance System</a>
+      <a href="https://www.researchgate.net/publication/399120336_Variable_Strength_Sand_Cat_Swarm_Optimization_VSCSO_for_T-Way_Combinatorial_Test_Suite_Generation" class="publication-link" target="_blank">Variable Strength Sand Cat Swarm Optimization (VSCSO) for T-Way Combinatorial Test Suite Generation</a>
+      <a href="https://www.researchgate.net/publication/399119768_Application_of_Sewing_Training-Based_Optimization_in_Generating_Effective_Input-Output_Relation-Based_for_the_T-Way_Test_Suite_Generation_Strategies" class="publication-link" target="_blank">Application of Sewing Training-Based Optimization in Generating Effective Input-Output Relation-Based for the T-Way Test Suite Generation Strategies</a>
     </div>
   </section>
 
@@ -1512,34 +1528,77 @@
     </div>
   </div>
 
+  <div style="
+  text-align:center;
+  margin:40px 0;
+  font-family:'Share Tech Mono';
+  color:#00f0ff;
+">
+  👁️ Total Visitors: <span id="viewCounter">0</span>
+</div>
+
   <div class="social-links">
     <a href="https://orcid.org/0009-0009-3268-0120" target="_blank"><i class="fab fa-orcid"></i> Orcid</a>
+    <a href="https://www.researchgate.net/profile/Muhammad-Aiman-Mohd-Asyraf?ev=hdr_xprf" target="_blank"><i class="fab fa-researchgate"></i> ResearchGate</a>
     <a href="https://linkedin.com/in/muhammad-aiman-mohd-asyraf-62b4a1255" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    <a href="https://scholar.google.com/citations?hl=en&user=dEZ_NRQAAAAJ" target="_blank"><i class="fab fa-googlescholar"></i> Google Scholar</a>
+    <a href="https://www.scopus.com/authid/detail.uri?authorId=57673137800" target="_blank"><i class="fab fa-scopus"></i> Scopus</a>
   </div>
-
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
   <script>
+
+    // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBGkqtbenhZ1q8oqOQ2LDS2LzyGcHXm2LI",
+    authDomain: "view-biodata.firebaseapp.com",
+    databaseURL: "https://view-biodata-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "view-biodata",
+    storageBucket: "view-biodata.appspot.com",
+    messagingSenderId: "554020556962",
+    appId: "1:554020556962:web:5fe87030dcee12ef5107fb"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  // Page view counter
+  const viewsRef = database.ref("pageViews");
+
+  // Increase count on every visit
+  // Count ONLY unique visitors (per device/browser)
+const hasVisited = localStorage.getItem("hasVisited");
+
+if (!hasVisited) {
+  viewsRef.transaction(current => (current || 0) + 1);
+  localStorage.setItem("hasVisited", "true");
+}
+
+
+  // Display views
+  viewsRef.on("value", snapshot => {
+    const views = snapshot.val();
+    const el = document.getElementById("viewCounter");
+    if (el) el.textContent = views.toLocaleString();
+  });
+
     // Fix for mobile navigation - all sections are visible but controlled with classes
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initialize all sections (all visible on mobile, just controlling active state)
-      const sections = document.querySelectorAll('section');
-      sections.forEach(section => {
-        if (section.id !== 'hero') {
-          section.style.display = 'block';
-          section.classList.remove('active');
-        }
-      });
-      
-      // Show hero section by default
-      document.getElementById('hero').classList.add('active');
-      
-      // Set up navigation
-      setupNavigation();
-      
-      // Initialize slideshows
-      initSlideshow('projects-slideshow', 'projects-indicators');
-      initSlideshow('achievements-slideshow', 'achievements-indicators');
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+  const sections = document.querySelectorAll('section:not(#hero)');
+
+  sections.forEach(section => {
+    section.style.display = 'none';
+    section.classList.remove('active');
+  });
+
+  setupNavigation();
+  initSlideshow('projects-slideshow', 'projects-indicators');
+  initSlideshow('achievements-slideshow', 'achievements-indicators');
+
+});
     
     function setupNavigation() {
       const navLinks = document.querySelectorAll('.nav-link');
@@ -1575,39 +1634,39 @@
     }
     
     function showSection(sectionId) {
-      // Hide all sections (except hero which is always visible)
-      document.querySelectorAll('section').forEach(section => {
-        if (section.id !== 'hero') {
-          section.classList.remove('active');
-        }
-      });
-      
-      // Show the target section
-      const targetSection = document.getElementById(sectionId);
-      if (targetSection) {
-        targetSection.classList.add('active');
-        
-        // Scroll to section with proper offset for mobile
-        const navHeight = document.getElementById('navbar').offsetHeight;
-        const sectionTop = targetSection.offsetTop - navHeight - 15;
-        
-        // Use requestAnimationFrame for smoother scrolling on mobile
-        requestAnimationFrame(() => {
-          window.scrollTo({
-            top: sectionTop,
-            behavior: 'smooth'
-          });
-        });
-        
-        // Update active nav link
-        document.querySelectorAll('.nav-link').forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('data-section') === sectionId) {
-            link.classList.add('active');
-          }
-        });
+  const sections = document.querySelectorAll('section');
+
+  sections.forEach(section => {
+    section.classList.remove('active');
+    section.style.display = 'none';
+  });
+
+  const targetSection = document.getElementById(sectionId);
+  if (targetSection) {
+    targetSection.style.display = 'block';
+
+    // small delay so CSS animation works
+    setTimeout(() => {
+      targetSection.classList.add('active');
+    }, 50);
+
+    const navHeight = document.getElementById('navbar').offsetHeight;
+    const sectionTop = targetSection.offsetTop - navHeight - 10;
+
+    window.scrollTo({
+      top: sectionTop,
+      behavior: 'smooth'
+    });
+
+    // active nav link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.dataset.section === sectionId) {
+        link.classList.add('active');
       }
-    }
+    });
+  }
+}
 
     // Scroll Progress Bar
     window.addEventListener('scroll', () => {
